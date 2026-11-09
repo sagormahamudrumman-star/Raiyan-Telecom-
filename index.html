@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="bn">
 <head>
@@ -7,32 +6,40 @@
 <meta name="theme-color" content="#071b16">
 <title>RAIYAN TELECOM</title>
 <style>
-:root{--bg:#071b16;--panel:#102820;--line:#285344;--green:#20c77a;--text:#effff6;--muted:#a7c5b6}
+:root{--bg:#071b16;--panel:#102820;--line:#285344;--green:#20c77a;--text:#effff6;--muted:#a7c5b6;--red:#e46b75;--blue:#73baff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif}
-header{position:sticky;top:0;background:#09221a;padding:13px;border-bottom:1px solid var(--line);z-index:5}
-.brand{font-size:20px;font-weight:900;color:#7cf0b2}
-nav{display:flex;gap:5px;overflow:auto;padding:8px;background:#0a211a;position:sticky;top:51px;z-index:4}
+header{position:sticky;top:0;background:#09221a;padding:12px 14px;border-bottom:1px solid var(--line);z-index:5;display:flex;align-items:center;gap:11px}
+.brandLogo{width:43px;height:43px;border-radius:10px;object-fit:cover;background:#17392c;display:none}
+.brand{font-size:19px;font-weight:900;color:#7cf0b2}header small{color:var(--muted)}
+nav{display:flex;gap:5px;overflow:auto;padding:8px;background:#0a211a;position:sticky;top:67px;z-index:4}
 button{border:0;border-radius:9px;background:var(--green);color:#042015;padding:10px;font-weight:bold;cursor:pointer}
 nav button{background:transparent;color:var(--muted);white-space:nowrap}nav button.active{background:#16372c;color:#8ff0bb}
-main{padding:12px;max-width:1100px;margin:auto}.page{display:none}.page.active{display:block}
-h2{font-size:21px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+main{padding:12px;max-width:1200px;margin:auto}.page{display:none}.page.active{display:block}
+h2{font-size:21px;margin:10px 0 15px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .panel,.stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px}
-.stat span{color:var(--muted);font-size:12px}.stat b{display:block;color:#8ff0bb;font-size:19px;margin-top:5px}
+.stat{min-height:92px;background:linear-gradient(145deg,#153c2e,#102820)}
+.stat span{color:var(--muted);font-size:12px}.stat b{display:block;color:#8ff0bb;font-size:19px;margin-top:5px;overflow-wrap:anywhere}
 input,select,textarea{width:100%;padding:11px;margin:5px 0;background:#071b16;color:white;border:1px solid #35614f;border-radius:8px}
 label{font-size:13px;color:var(--muted)}.toolbar{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.toolbar input{flex:1;min-width:140px}
 .tablewrap{overflow:auto}table{width:100%;min-width:650px;border-collapse:collapse;background:var(--panel);font-size:13px}
 td,th{padding:10px;border-bottom:1px solid var(--line);text-align:left}th{color:#8ff0bb}
-.secondary{background:#244638;color:white}.danger{background:#9e333d;color:white}
+.secondary{background:#244638;color:white}.danger{background:#9e333d;color:white}.blue{background:#28547a;color:white}
 #modal{display:none;position:fixed;inset:0;background:#000b;z-index:10;align-items:center;justify-content:center;padding:12px}#modal.show{display:flex}
-.dialog{background:#102820;border:1px solid var(--line);border-radius:15px;padding:15px;width:100%;max-width:520px;max-height:90vh;overflow:auto}
+.dialog{background:#102820;border:1px solid var(--line);border-radius:15px;padding:15px;width:100%;max-width:560px;max-height:90vh;overflow:auto}
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px}.full{grid-column:1/-1}.actions{display:flex;gap:5px}.actions button{font-size:12px;padding:7px}
 .empty{text-align:center;padding:20px;color:var(--muted)}.notice{background:#183c2d;padding:10px;border-radius:9px;color:#b7f5d2;font-size:13px;margin:10px 0}
-@media(max-width:550px){.formgrid{grid-template-columns:1fr}.full{grid-column:auto}}
+.pill{display:inline-block;padding:3px 8px;border-radius:20px;background:#173d2d;color:#a5f0c4;font-size:11px}
+.logoPreview{width:90px;height:90px;object-fit:cover;border-radius:14px;background:#17392c}
+@media(min-width:750px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:550px){.formgrid{grid-template-columns:1fr}.full{grid-column:auto}header{top:0}nav{top:67px}}
+@media print{header,nav,.toolbar,button{display:none!important}body{background:white;color:black}.panel,.stat,table{background:white;color:black;border:1px solid #aaa}.stat b{color:black}}
 </style>
 </head>
 <body>
-<header><div class="brand">RAIYAN TELECOM</div><small>দোকান ম্যানেজমেন্ট সিস্টেম • অফলাইন</small></header>
-
+<header>
+<img id="headerLogo" class="brandLogo" alt="দোকানের লোগো">
+<div><div class="brand" id="headerName">RAIYAN TELECOM</div><small id="headerSubtitle">দোকান ম্যানেজমেন্ট সিস্টেম • অফলাইন</small></div>
+</header>
 <nav id="nav">
 <button class="active" data-page="dashboard">🏠 ড্যাশবোর্ড</button>
 <button data-page="products">📦 পণ্য</button>
@@ -43,506 +50,121 @@ td,th{padding:10px;border-bottom:1px solid var(--line);text-align:left}th{color:
 <button data-page="transactions">💳 লেনদেন</button>
 <button data-page="expenses">💸 খরচ</button>
 <button data-page="employees">🧑‍💼 কর্মচারী</button>
+<button data-page="mobileBank">📱 মোবাইল ব্যাংকিং</button>
+<button data-page="recharge">📡 রিচার্জ</button>
+<button data-page="cards">🎫 মোবাইল কার্ড</button>
 <button data-page="reports">📊 রিপোর্ট</button>
 <button data-page="settings">⚙️ সেটিংস</button>
 </nav>
-
 <main>
 <section id="dashboard" class="page active">
 <h2>ড্যাশবোর্ড</h2>
 <div class="grid" id="stats"></div>
-<div class="panel"><h3>সাম্প্রতিক বিক্রি</h3><div id="recent"></div></div>
-<div class="notice">নিয়মিত ব্যাকআপ ডাউনলোড করে রাখুন।</div>
+<div class="panel"><h3>📱 মোবাইল সার্ভিসের ব্যালেন্স</h3><div id="serviceStats" class="grid"></div></div>
+<div class="panel"><h3>📈 সাম্প্রতিক ১০টি বিক্রি</h3><div id="recent"></div></div>
+<div class="panel"><h3>⚠️ কম স্টক সতর্কতা</h3><div id="lowStock"></div></div>
 </section>
-
-<section id="products" class="page">
-<h2>পণ্য ব্যবস্থাপনা</h2>
-<div class="toolbar">
-<input id="productSearch" placeholder="পণ্য/কোড/ক্যাটাগরি খুঁজুন" oninput="renderProducts()">
-<button onclick="openForm('products')">+ পণ্য যোগ</button>
-</div>
-<div id="productTable"></div>
-</section>
-
-<section id="sales" class="page">
-<h2>বিক্রি</h2><button onclick="openForm('sales')">+ নতুন বিক্রি</button><div id="salesTable"></div>
-</section>
-
-<section id="purchases" class="page">
-<h2>পণ্য ক্রয়</h2><button onclick="openForm('purchases')">+ ক্রয় যোগ</button><div id="purchasesTable"></div>
-</section>
-
-<section id="customers" class="page">
-<h2>কাস্টমার</h2>
-<div class="toolbar"><input id="customerSearch" placeholder="নাম/মোবাইল খুঁজুন" oninput="renderSimple('customers')"><button onclick="openForm('customers')">+ কাস্টমার যোগ</button></div>
-<div id="customersTable"></div>
-</section>
-
-<section id="suppliers" class="page">
-<h2>সাপ্লায়ার</h2>
-<div class="toolbar"><input id="supplierSearch" placeholder="নাম/মোবাইল খুঁজুন" oninput="renderSimple('suppliers')"><button onclick="openForm('suppliers')">+ সাপ্লায়ার যোগ</button></div>
-<div id="suppliersTable"></div>
-</section>
-
-<section id="transactions" class="page">
-<h2>লেনদেন</h2><button onclick="openForm('transactions')">+ লেনদেন যোগ</button><div id="transactionsTable"></div>
-</section>
-
-<section id="expenses" class="page">
-<h2>দোকানের খরচ</h2><button onclick="openForm('expenses')">+ খরচ যোগ</button><div id="expensesTable"></div>
-</section>
-
-<section id="employees" class="page">
-<h2>কর্মচারী</h2><button onclick="openForm('employees')">+ কর্মচারী যোগ</button><div id="employeesTable"></div>
-</section>
-
-<section id="reports" class="page">
-<h2>রিপোর্ট</h2><div id="reportBox"></div><button onclick="window.print()">প্রিন্ট / PDF</button>
-</section>
-
-<section id="settings" class="page">
-<h2>সেটিংস ও ব্যাকআপ</h2>
-<div class="panel">
-<label>দোকানের নাম</label><input id="shopName">
-<label>মোবাইল নম্বর</label><input id="shopPhone">
-<label>ঠিকানা</label><input id="shopAddress">
-<div class="toolbar">
-<button onclick="saveSettings()">সেটিংস সংরক্ষণ</button>
-<button class="secondary" onclick="backupData()">ব্যাকআপ ডাউনলোড</button>
-</div>
-<label>ব্যাকআপ ফিরিয়ে আনুন</label>
-<input type="file" accept="application/json" onchange="restoreData(event)">
-</div>
-</section>
+<section id="products" class="page"><h2>পণ্য ব্যবস্থাপনা</h2><div class="toolbar"><input id="productSearch" placeholder="পণ্য/কোড/ক্যাটাগরি খুঁজুন" oninput="renderProducts()"><button onclick="openForm('products')">+ পণ্য যোগ</button></div><div id="productsTable"></div></section>
+<section id="sales" class="page"><h2>বিক্রি</h2><button onclick="openForm('sales')">+ নতুন বিক্রি</button><div id="salesTable"></div></section>
+<section id="purchases" class="page"><h2>পণ্য ক্রয়</h2><button onclick="openForm('purchases')">+ ক্রয় যোগ</button><div id="purchasesTable"></div></section>
+<section id="customers" class="page"><h2>কাস্টমার</h2><div class="toolbar"><input id="customerSearch" placeholder="নাম/মোবাইল খুঁজুন" oninput="renderSimple('customers')"><button onclick="openForm('customers')">+ কাস্টমার যোগ</button></div><div id="customersTable"></div></section>
+<section id="suppliers" class="page"><h2>সাপ্লায়ার</h2><div class="toolbar"><input id="supplierSearch" placeholder="নাম/মোবাইল খুঁজুন" oninput="renderSimple('suppliers')"><button onclick="openForm('suppliers')">+ সাপ্লায়ার যোগ</button></div><div id="suppliersTable"></div></section>
+<section id="transactions" class="page"><h2>সাধারণ লেনদেন</h2><button onclick="openForm('transactions')">+ লেনদেন যোগ</button><div id="transactionsTable"></div></section>
+<section id="expenses" class="page"><h2>দোকানের খরচ</h2><button onclick="openForm('expenses')">+ খরচ যোগ</button><div id="expensesTable"></div></section>
+<section id="employees" class="page"><h2>কর্মচারী</h2><button onclick="openForm('employees')">+ কর্মচারী যোগ</button><div id="employeesTable"></div></section>
+<section id="mobileBank" class="page"><h2>📱 মোবাইল ব্যাংকিং</h2><div class="notice">বিকাশ, নগদ, রকেট ও উপায়ের ব্যালেন্স/ফ্লোট যোগ ও বিক্রির হিসাব আলাদা থাকবে। কমিশন বা লাভ আলাদাভাবে লিখুন।</div><div id="bankSummary" class="grid"></div><div class="toolbar"><button onclick="openForm('mobileOps')">+ ব্যাংকিং লেনদেন</button></div><div id="mobileOpsTable"></div></section>
+<section id="recharge" class="page"><h2>📡 মোবাইল রিচার্জ</h2><div class="notice">কোম্পানি অনুযায়ী রিচার্জ ব্যালেন্স কেনা, বিক্রি, অবশিষ্ট ও লাভ হিসাব হবে।</div><div id="rechargeSummary" class="grid"></div><div class="toolbar"><button onclick="openForm('rechargeOps')">+ রিচার্জ লেনদেন</button></div><div id="rechargeOpsTable"></div></section>
+<section id="cards" class="page"><h2>🎫 মোবাইল কার্ড</h2><div id="cardSummary" class="grid"></div><div class="toolbar"><button onclick="openForm('cardOps')">+ কার্ড কেনা / বিক্রি</button></div><div id="cardOpsTable"></div></section>
+<section id="reports" class="page"><h2>রিপোর্ট</h2><div class="toolbar"><label>শুরু <input id="reportFrom" type="date"></label><label>শেষ <input id="reportTo" type="date"></label><button onclick="renderReports()">হিসাব দেখুন</button></div><div id="reportBox"></div><button onclick="window.print()">প্রিন্ট / PDF</button></section>
+<section id="settings" class="page"><h2>⚙️ সেটিংস ও ব্যাকআপ</h2><div class="panel">
+<label>দোকানের নাম</label><input id="shopName" placeholder="দোকানের নাম">
+<label>ওয়েবসাইট / অ্যাপের নাম</label><input id="websiteName" placeholder="যেমন: raiyan-telecom">
+<label>মোবাইল নম্বর</label><input id="shopPhone" placeholder="01XXXXXXXXX">
+<label>ঠিকানা</label><input id="shopAddress" placeholder="দোকানের ঠিকানা">
+<label>অ্যাপ / দোকানের ছবি (লোগো)</label><input id="shopLogo" type="file" accept="image/*"><img id="logoPreview" class="logoPreview" alt="লোগো প্রিভিউ" style="display:none">
+<div class="toolbar"><button onclick="saveSettings()">সেটিংস সংরক্ষণ</button><button class="secondary" onclick="backupData()">ব্যাকআপ ডাউনলোড</button></div>
+<label>ব্যাকআপ ফিরিয়ে আনুন</label><input type="file" accept="application/json" onchange="restoreData(event)">
+<div class="notice">ডেটা এই ব্রাউজারের Local Storage-এ থাকবে। নিয়মিত JSON ব্যাকআপ ডাউনলোড করে রাখুন।</div>
+</div></section>
 </main>
-
-<div id="modal">
-<div class="dialog">
-<h3 id="modalTitle">তথ্য যোগ</h3>
-<form id="dataForm">
-<div id="formFields" class="formgrid"></div>
-<div class="toolbar">
-<button type="button" class="secondary" onclick="closeModal()">বাতিল</button>
-<button type="submit">সংরক্ষণ</button>
-</div>
-</form>
-</div>
-</div>
-
+<div id="modal"><div class="dialog"><h3 id="modalTitle">তথ্য যোগ</h3><form id="dataForm"><div id="formFields" class="formgrid"></div><div class="toolbar"><button type="button" class="secondary" onclick="closeModal()">বাতিল</button><button type="submit">সংরক্ষণ</button></div></form></div></div>
 <script>
-const DBKEY='raiyan_telecom_v4';
-
-const categories=[
-'মোবাইল ফোন','বাটন ফোন','চার্জার','ডাটা ক্যাবল',
-'USB ক্যাবল','হেডফোন','ইয়ারফোন','ব্লুটুথ হেডফোন',
-'স্পিকার','পাওয়ার ব্যাংক','মেমোরি কার্ড','পেনড্রাইভ',
-'মাউস','কিবোর্ড','কম্পিউটার যন্ত্রাংশ','ল্যাপটপ এক্সেসরিজ',
-'মোবাইল কভার','মোবাইল গ্লাস','ডিসপ্লে','ব্যাটারি',
-'সিম কার্ড','রাউটার','Wi-Fi ডিভাইস','LED লাইট',
-'টর্চ লাইট','রিমোট','ঘড়ি','ক্যালকুলেটর',
-'CCTV ক্যামেরা','ইলেকট্রিক সুইচ','মাল্টিপ্লাগ',
-'অন্যান্য ইলেকট্রনিক্স'
-];
-
+const DBKEY='raiyan_telecom_v5';
+const categories=['মোবাইল ফোন','বাটন ফোন','চার্জার','ডাটা ক্যাবল','USB ক্যাবল','হেডফোন','ইয়ারফোন','ব্লুটুথ হেডফোন','স্পিকার','পাওয়ার ব্যাংক','মেমোরি কার্ড','পেনড্রাইভ','মাউস','কিবোর্ড','কম্পিউটার যন্ত্রাংশ','ল্যাপটপ এক্সেসরিজ','মোবাইল কভার','মোবাইল গ্লাস','ডিসপ্লে','ব্যাটারি','সিম কার্ড','রাউটার','Wi-Fi ডিভাইস','LED লাইট','টর্চ লাইট','রিমোট','ঘড়ি','ক্যালকুলেটর','CCTV ক্যামেরা','ইলেকট্রিক সুইচ','মাল্টিপ্লাগ','অন্যান্য ইলেকট্রনিক্স'];
+const companies=['GP','Robi','Banglalink','Airtel','Teletalk'];
+const banks=['বিকাশ','নগদ','রকেট','উপায়'];
 const types={
-products:{title:'পণ্য',fields:[
-['name','পণ্যের নাম','text',1],
-['code','পণ্য কোড','text'],
-['category','ক্যাটাগরি','category',1],
-['brand','ব্র্যান্ড / মডেল','text'],
-['buy','ক্রয় মূল্য (৳)','number',1],
-['price','বিক্রয় মূল্য (৳)','number',1],
-['stock','স্টক সংখ্যা','number',1],
-['min','সর্বনিম্ন স্টক সতর্কতা','number'],
-['supplier','সাপ্লায়ার','text'],
-['photo','পণ্যের ছবি','file'],
-['description','বিবরণ','textarea']
-]},
-customers:{title:'কাস্টমার',fields:[
-['name','নাম','text',1],['phone','মোবাইল','tel'],
-['address','ঠিকানা','text'],['note','নোট','textarea']
-]},
-suppliers:{title:'সাপ্লায়ার',fields:[
-['name','নাম','text',1],['phone','মোবাইল','tel'],
-['address','ঠিকানা','text'],['note','নোট','textarea']
-]},
-employees:{title:'কর্মচারী',fields:[
-['name','নাম','text',1],['phone','মোবাইল','tel'],
-['salary','মাসিক বেতন (৳)','number'],['address','ঠিকানা','text']
-]},
-transactions:{title:'লেনদেন',fields:[
-['kind','ধরন','select',1,['জমা','উত্তোলন']],
-['method','মাধ্যম','select',1,['নগদ','বিকাশ','নগদ (Nagad)','রকেট','উপায়','ব্যাংক']],
-['amount','টাকার পরিমাণ (৳)','number',1],
-['details','বিবরণ','text'],['date','তারিখ','date']
-]},
-expenses:{title:'খরচ',fields:[
-['category','খরচের খাত','text',1],['amount','টাকা (৳)','number',1],
-['details','বিবরণ','text'],['date','তারিখ','date']
-]},
-sales:{title:'বিক্রি',fields:[
-['productId','পণ্য','product',1],['qty','পরিমাণ','number',1],
-['unitPrice','প্রতি পিস বিক্রয় মূল্য (৳)','number',1],
-['discount','ছাড় (৳)','number'],['customer','কাস্টমারের নাম','text'],
-['paid','জমা (৳)','number'],['date','তারিখ','date']
-]},
-purchases:{title:'ক্রয়',fields:[
-['productId','পণ্য','product',1],['qty','পরিমাণ','number',1],
-['unitCost','প্রতি পিস ক্রয় মূল্য (৳)','number',1],
-['paid','পরিশোধ (৳)','number'],['supplier','সাপ্লায়ার','text'],
-['date','তারিখ','date']
-]}
+products:{title:'পণ্য',fields:[['name','পণ্যের নাম','text',1],['code','পণ্য কোড','text'],['category','ক্যাটাগরি','category',1],['brand','ব্র্যান্ড / মডেল','text'],['buy','ক্রয় মূল্য (৳)','number',1],['price','বিক্রয় মূল্য (৳)','number',1],['stock','স্টক সংখ্যা','number',1],['min','সর্বনিম্ন স্টক সতর্কতা','number'],['supplier','সাপ্লায়ার','text'],['photo','পণ্যের ছবি','file'],['description','বিবরণ','textarea']]},
+customers:{title:'কাস্টমার',fields:[['name','নাম','text',1],['phone','মোবাইল','tel'],['address','ঠিকানা','text'],['note','নোট','textarea']]},
+suppliers:{title:'সাপ্লায়ার',fields:[['name','নাম','text',1],['phone','মোবাইল','tel'],['address','ঠিকানা','text'],['note','নোট','textarea']]},
+employees:{title:'কর্মচারী',fields:[['name','নাম','text',1],['phone','মোবাইল','tel'],['salary','মাসিক বেতন (৳)','number'],['address','ঠিকানা','text']]},
+transactions:{title:'লেনদেন',fields:[['kind','ধরন','select',1,['জমা','উত্তোলন']],['method','মাধ্যম','select',1,['নগদ','বিকাশ','রকেট','উপায়','ব্যাংক']],['amount','টাকার পরিমাণ (৳)','number',1],['details','বিবরণ','text'],['date','তারিখ','date']]},
+expenses:{title:'খরচ',fields:[['category','খরচের খাত','text',1],['amount','টাকা (৳)','number',1],['details','বিবরণ','text'],['date','তারিখ','date']]},
+sales:{title:'বিক্রি',fields:[['productId','পণ্য','product',1],['qty','পরিমাণ','number',1],['unitPrice','প্রতি পিস বিক্রয় মূল্য (৳)','number',1],['discount','ছাড় (৳)','number'],['customer','কাস্টমারের নাম','text'],['paid','জমা (৳)','number'],['date','তারিখ','date']]},
+purchases:{title:'ক্রয়',fields:[['productId','পণ্য','product',1],['qty','পরিমাণ','number',1],['unitCost','প্রতি পিস ক্রয় মূল্য (৳)','number',1],['paid','পরিশোধ (৳)','number'],['supplier','সাপ্লায়ার','text'],['date','তারিখ','date']]},
+mobileOps:{title:'মোবাইল ব্যাংকিং',fields:[['service','সার্ভিস','select',1,banks],['kind','লেনদেনের ধরন','select',1,['ব্যালেন্স যোগ','বিক্রি / ক্যাশ আউট','ব্যালেন্স সমন্বয়']],['amount','ব্যালেন্সের পরিমাণ (৳)','number',1],['cost','কেনার খরচ (৳)','number'],['commission','কমিশন / লাভ (৳)','number'],['details','বিবরণ / ট্রানজেকশন আইডি','text'],['date','তারিখ','date']]},
+rechargeOps:{title:'মোবাইল রিচার্জ',fields:[['service','কোম্পানি','select',1,companies],['kind','লেনদেনের ধরন','select',1,['ব্যালেন্স কেনা','রিচার্জ বিক্রি']],['amount','রিচার্জের পরিমাণ (৳)','number',1],['cost','কেনার খরচ (৳)','number'],['salePrice','গ্রাহকের কাছ থেকে আদায় (৳)','number'],['phone','গ্রাহকের মোবাইল','tel'],['details','বিবরণ','text'],['date','তারিখ','date']]},
+cardOps:{title:'মোবাইল কার্ড',fields:[['service','কোম্পানি','select',1,companies],['kind','লেনদেনের ধরন','select',1,['কার্ড কেনা','কার্ড বিক্রি']],['denomination','কার্ডের মূল্য (৳)','number',1],['qty','কার্ডের সংখ্যা','number',1],['cost','মোট কেনার খরচ (৳)','number'],['salePrice','মোট বিক্রির টাকা (৳)','number'],['details','সিরিয়াল / বিবরণ','text'],['date','তারিখ','date']]}
 };
-
-function empty(){
-return {
-products:[],customers:[],suppliers:[],employees:[],
-transactions:[],expenses:[],sales:[],purchases:[],
-settings:{name:'RAIYAN TELECOM',phone:'',address:''}
-};
-}
-
-function load(){
-try{return JSON.parse(localStorage.getItem(DBKEY))||empty()}
-catch(e){return empty()}
-}
-
+function empty(){return {products:[],customers:[],suppliers:[],employees:[],transactions:[],expenses:[],sales:[],purchases:[],mobileOps:[],rechargeOps:[],cardOps:[],settings:{name:'RAIYAN TELECOM',websiteName:'RAIYAN TELECOM',phone:'',address:'',logo:''}}}
+function load(){try{let x=JSON.parse(localStorage.getItem(DBKEY));return x?{...empty(),...x,settings:{...empty().settings,...(x.settings||{})}}:empty()}catch(e){return empty()}}
 let data=load(),editing=null,currentType=null;
-
-function save(){
-localStorage.setItem(DBKEY,JSON.stringify(data));
-renderAll();
-}
-
-function id(){
-return Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-}
-
-function money(n){
-return '৳ '+(Number(n)||0).toLocaleString('en-IN',{maximumFractionDigits:2});
-}
-
+function save(){localStorage.setItem(DBKEY,JSON.stringify(data));renderAll()}
+function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function money(n){return '৳ '+(Number(n)||0).toLocaleString('en-IN',{maximumFractionDigits:2})}
 function dateNow(){return new Date().toISOString().slice(0,10)}
-
-function esc(v){
-return String(v??'').replace(/[&<>"']/g,c=>({
-'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-}[c]));
-}
-
-document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{
-document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('active'));
-b.classList.add('active');
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(b.dataset.page).classList.add('active');
-renderAll();
-});
-
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(b.dataset.page).classList.add('active');renderAll()});
 function openForm(type,record=null){
-currentType=type;
-editing=record?record.id:null;
-let cfg=types[type],html='';
-
+currentType=type;editing=record?record.id:null;let cfg=types[type],html='';
 document.getElementById('modalTitle').textContent=(record?'এডিট ':'নতুন ')+cfg.title;
-
 cfg.fields.forEach(([key,label,kind,required,opts])=>{
-let val=record?.[key]??(key==='date'?dateNow():key==='paid'||key==='discount'?0:'');
-
+let val=record?.[key]??(key==='date'?dateNow():['paid','discount','cost','commission','salePrice'].includes(key)?0:'');
 html+=`<div class="${kind==='textarea'?'full':''}"><label>${label}${required?' *':''}</label>`;
-
-if(kind==='select'){
-html+=`<select name="${key}" ${required?'required':''}>${opts.map(o=>`<option ${val===o?'selected':''}>${o}</option>`).join('')}</select>`;
-}
-else if(kind==='category'){
-let custom=val&&!categories.includes(val);
-html+=`<select name="category" id="categorySelect" required onchange="toggleCustomCategory()">
-<option value="">ক্যাটাগরি বাছাই করুন</option>
-${categories.map(c=>`<option value="${esc(c)}" ${val===c?'selected':''}>${esc(c)}</option>`).join('')}
-<option value="__custom__" ${custom?'selected':''}>＋ নতুন ক্যাটাগরি লিখুন</option>
-</select>
-<input id="customCategory" placeholder="নতুন ক্যাটাগরির নাম লিখুন" value="${custom?esc(val):''}" style="display:${custom?'block':'none'}" ${custom?'required':''}>`;
-}
-else if(kind==='product'){
-html+=`<select name="${key}" required><option value="">পণ্য বাছাই করুন</option>${data.products.map(p=>`<option value="${p.id}" ${val===p.id?'selected':''}>${esc(p.name)} — স্টক ${p.stock}</option>`).join('')}</select>`;
-}
-else if(kind==='textarea'){
-html+=`<textarea name="${key}" rows="2">${esc(val)}</textarea>`;
-}
-else if(kind==='file'){
-html+=`<input name="${key}" type="file" accept="image/*">`;
-}
-else{
-html+=`<input name="${key}" type="${kind}" value="${esc(val)}" ${required?'required':''} ${kind==='number'?'min="0" step="any"':''}>`;
-}
+if(kind==='select')html+=`<select name="${key}" ${required?'required':''}>${opts.map(o=>`<option value="${esc(o)}" ${val===o?'selected':''}>${esc(o)}</option>`).join('')}</select>`;
+else if(kind==='category'){let custom=val&&!categories.includes(val);html+=`<select name="category" id="categorySelect" required onchange="toggleCustomCategory()"><option value="">ক্যাটাগরি বাছাই করুন</option>${categories.map(c=>`<option value="${esc(c)}" ${val===c?'selected':''}>${esc(c)}</option>`).join('')}<option value="__custom__" ${custom?'selected':''}>＋ নতুন ক্যাটাগরি লিখুন</option></select><input id="customCategory" placeholder="নতুন ক্যাটাগরির নাম" value="${custom?esc(val):''}" style="display:${custom?'block':'none'}" ${custom?'required':''}>`}
+else if(kind==='product')html+=`<select name="${key}" required><option value="">পণ্য বাছাই করুন</option>${data.products.map(p=>`<option value="${p.id}" ${val===p.id?'selected':''}>${esc(p.name)} — স্টক ${p.stock}</option>`).join('')}</select>`;
+else if(kind==='textarea')html+=`<textarea name="${key}" rows="2">${esc(val)}</textarea>`;
+else if(kind==='file')html+=`<input name="${key}" type="file" accept="image/*">`;
+else html+=`<input name="${key}" type="${kind}" value="${esc(val)}" ${required?'required':''} ${kind==='number'?'min="0" step="any"':''}>`;
 html+='</div>';
 });
-
-document.getElementById('formFields').innerHTML=html;
-document.getElementById('modal').classList.add('show');
+document.getElementById('formFields').innerHTML=html;document.getElementById('modal').classList.add('show');
 }
-
-function toggleCustomCategory(){
-let s=document.getElementById('categorySelect');
-let i=document.getElementById('customCategory');
-if(!s||!i)return;
-let show=s.value==='__custom__';
-i.style.display=show?'block':'none';
-i.required=show;
-}
-
-function closeModal(){
-document.getElementById('modal').classList.remove('show');
-}
-
-function fileData(file){
-return new Promise(res=>{
-let r=new FileReader();
-r.onload=()=>res(r.result);
-r.readAsDataURL(file);
-});
-}
-
+function toggleCustomCategory(){let s=document.getElementById('categorySelect'),i=document.getElementById('customCategory');if(!s||!i)return;let show=s.value==='__custom__';i.style.display=show?'block':'none';i.required=show}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function fileData(file){return new Promise((res,rej)=>{let r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)})}
+function stockEffect(type,record,sign){if(type!=='sales'&&type!=='purchases')return;let p=data.products.find(x=>x.id===record.productId);if(!p)return;let q=Number(record.qty||0);p.stock=Number(p.stock||0)+(type==='sales'?q*sign:-q*sign)}
 document.getElementById('dataForm').onsubmit=async e=>{
-e.preventDefault();
-let fd=new FormData(e.target),obj={};
-
-for(let [k,v] of fd.entries()){
-if(k==='photo'){
-if(v.size)obj.photo=await fileData(v);
-}else obj[k]=v;
-}
-
-if(currentType==='products'&&obj.category==='__custom__'){
-obj.category=document.getElementById('customCategory').value.trim();
-}
-
-types[currentType].fields.forEach(([k,,kind])=>{
-if(kind==='number')obj[k]=Number(obj[k]||0);
-});
-
-let arr=data[currentType];
-let old=editing?arr.find(x=>x.id===editing):null;
-
+e.preventDefault();let fd=new FormData(e.target),obj={};
+for(let [k,v] of fd.entries()){if(k==='photo'){if(v.size)obj.photo=await fileData(v)}else obj[k]=v}
+if(currentType==='products'&&obj.category==='__custom__')obj.category=document.getElementById('customCategory').value.trim();
+types[currentType].fields.forEach(([k,,kind])=>{if(kind==='number')obj[k]=Number(obj[k]||0)});
+let arr=data[currentType],old=editing?arr.find(x=>x.id===editing):null;
 if(currentType==='sales'||currentType==='purchases'){
-if(old){
-let op=data.products.find(x=>x.id===old.productId);
-if(op){
-op.stock=currentType==='sales'
-?Number(op.stock)+Number(old.qty)
-:Math.max(0,Number(op.stock)-Number(old.qty));
+if(old)stockEffect(currentType,old,1);
+let p=data.products.find(x=>x.id===obj.productId);if(!p){alert('আগে পণ্য যোগ করুন');return}
+let qty=Number(obj.qty||0);
+if(currentType==='sales'&&qty>Number(p.stock||0)){if(old)stockEffect(currentType,old,-1);alert('স্টকে পর্যাপ্ত পণ্য নেই');return}
+if(currentType==='sales'){obj.total=Math.max(0,qty*obj.unitPrice-Number(obj.discount||0));obj.due=Math.max(0,obj.total-Number(obj.paid||0));obj.cost=qty*Number(p.buy||0);p.stock-=qty}
+else{obj.total=qty*obj.unitCost;obj.due=Math.max(0,obj.total-Number(obj.paid||0));p.stock=Number(p.stock||0)+qty;p.buy=obj.unitCost}
 }
+if(currentType==='mobileOps'||currentType==='rechargeOps'||currentType==='cardOps'){
+if(currentType==='cardOps')obj.total=Number(obj.denomination||0)*Number(obj.qty||0);
+if(currentType==='mobileOps'&&obj.kind==='ব্যালেন্স যোগ'&&obj.cost===0)obj.cost=obj.amount;
 }
-
-let p=data.products.find(x=>x.id===obj.productId);
-if(!p){alert('আগে পণ্য যোগ করুন');return}
-
-let qty=Number(obj.qty);
-
-if(currentType==='sales'&&qty>Number(p.stock)){
-if(old){
-let op=data.products.find(x=>x.id===old.productId);
-if(op)op.stock-=Number(old.qty);
-}
-alert('স্টকে পর্যাপ্ত পণ্য নেই');
-return;
-}
-
-if(currentType==='sales'){
-obj.total=Math.max(0,qty*obj.unitPrice-obj.discount);
-obj.due=Math.max(0,obj.total-obj.paid);
-obj.cost=qty*Number(p.buy||0);
-p.stock-=qty;
-}else{
-obj.total=qty*obj.unitCost;
-obj.due=Math.max(0,obj.total-obj.paid);
-p.stock=Number(p.stock||0)+qty;
-p.buy=obj.unitCost;
-}
-}
-
-if(old){
-let ix=arr.findIndex(x=>x.id===editing);
-arr[ix]={...old,...obj};
-}else{
-arr.push({id:id(),created:Date.now(),...obj});
-}
-
-closeModal();
-save();
+if(old){let ix=arr.findIndex(x=>x.id===editing);arr[ix]={...old,...obj}}
+else arr.push({id:id(),created:Date.now(),...obj});
+closeModal();save();
 };
-
-function table(type,headers,rows){
-let el=document.getElementById(type+'Table');
-if(!rows.length){
-el.innerHTML='<div class="empty">এখনো কোনো তথ্য যোগ করা হয়নি</div>';
-return;
-}
-el.innerHTML=`<div class="tablewrap"><table>
-<thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}<th>অ্যাকশন</th></tr></thead>
-<tbody>${rows.map(r=>`<tr>${r.cells.map(c=>`<td>${c??''}</td>`).join('')}
-<td><div class="actions">${r.actions}</div></td></tr>`).join('')}</tbody>
-</table></div>`;
-}
-
-function btnEdit(t,x){
-return `<button class="secondary" onclick="editItem('${t}','${x.id}')">এডিট</button>
-<button class="danger" onclick="delItem('${t}','${x.id}')">ডিলিট</button>`;
-}
-
-function editItem(t,i){
-let x=data[t].find(a=>a.id===i);
-if(x)openForm(t,x);
-}
-
-function delItem(t,i){
-if(!confirm('এই তথ্যটি মুছে ফেলবেন?'))return;
-
-if(t==='products'&&(data.sales.some(x=>x.productId===i)||data.purchases.some(x=>x.productId===i))){
-alert('এই পণ্যের বিক্রি/ক্রয়ের রেকর্ড আছে, তাই ডিলিট করা যাচ্ছে না');
-return;
-}
-
-if(t==='sales'||t==='purchases'){
-let x=data[t].find(a=>a.id===i);
-let p=x&&data.products.find(a=>a.id===x.productId);
-if(p){
-p.stock=t==='sales'
-?Number(p.stock)+Number(x.qty)
-:Math.max(0,Number(p.stock)-Number(x.qty));
-}
-}
-
-data[t]=data[t].filter(x=>x.id!==i);
-save();
-}
-
-function renderProducts(){
-let q=(document.getElementById('productSearch')?.value||'').toLowerCase();
-let a=data.products.filter(p=>(p.name+' '+p.code+' '+p.category).toLowerCase().includes(q));
-
-table('products',['ছবি','নাম','ক্যাটাগরি','কোড','ক্রয়','বিক্রয়','লাভ','স্টক'],
-a.map(p=>({
-cells:[
-p.photo?`<img width="38" src="${p.photo}">`:'—',
-esc(p.name),esc(p.category),esc(p.code),
-money(p.buy),money(p.price),money(p.price-p.buy),p.stock
-],
-actions:btnEdit('products',p)
-})));
-}
-
-function renderSimple(t){
-let q=(document.getElementById(t.slice(0,-1)+'Search')?.value||'').toLowerCase();
-let a=data[t].filter(x=>(x.name+' '+x.phone).toLowerCase().includes(q));
-table(t,['নাম','মোবাইল','ঠিকানা'],
-a.map(x=>({
-cells:[esc(x.name),esc(x.phone),esc(x.address||x.note)],
-actions:btnEdit(t,x)
-})));
-}
-
-function renderList(t,heads,mapper){
-table(t,heads,data[t].slice().reverse().map(x=>({
-cells:mapper(x),actions:btnEdit(t,x)
-})));
-}
-
-function renderAll(){
-renderProducts();
-renderSimple('customers');
-renderSimple('suppliers');
-
-renderList('sales',['তারিখ','পণ্য','পরিমাণ','মোট','জমা','বাকি','কাস্টমার'],
-s=>[s.date,esc(data.products.find(p=>p.id===s.productId)?.name||''),s.qty,money(s.total),money(s.paid),money(s.due),esc(s.customer)]);
-
-renderList('purchases',['তারিখ','পণ্য','পরিমাণ','মোট','পরিশোধ','বাকি','সাপ্লায়ার'],
-s=>[s.date,esc(data.products.find(p=>p.id===s.productId)?.name||''),s.qty,money(s.total),money(s.paid),money(s.due),esc(s.supplier)]);
-
-renderList('transactions',['তারিখ','ধরন','মাধ্যম','টাকা','বিবরণ'],
-x=>[x.date,x.kind,x.method,money(x.amount),esc(x.details)]);
-
-renderList('expenses',['তারিখ','খাত','টাকা','বিবরণ'],
-x=>[x.date,esc(x.category),money(x.amount),esc(x.details)]);
-
-renderList('employees',['নাম','মোবাইল','বেতন'],
-x=>[esc(x.name),esc(x.phone),money(x.salary)]);
-
-let sales=data.sales.reduce((s,x)=>s+Number(x.total||0),0);
-let profit=data.sales.reduce((s,x)=>s+Number(x.total||0)-Number(x.cost||0),0);
-let purchases=data.purchases.reduce((s,x)=>s+Number(x.total||0),0);
-let expenses=data.expenses.reduce((s,x)=>s+Number(x.amount||0),0);
-let due=data.sales.reduce((s,x)=>s+Number(x.due||0),0);
-let stock=data.products.reduce((s,x)=>s+Number(x.stock||0),0);
-
-document.getElementById('stats').innerHTML=[
-['মোট বিক্রি',money(sales)],
-['পণ্যের লাভ',money(profit)],
-['মোট পণ্য',data.products.length],
-['স্টক ইউনিট',stock],
-['মোট ক্রয়',money(purchases)],
-['কাস্টমার বাকি',money(due)],
-['দোকানের খরচ',money(expenses)],
-['লাভ - খরচ',money(profit-expenses)]
-].map(x=>`<div class="stat"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('');
-
-document.getElementById('recent').innerHTML=
-data.sales.slice(-5).reverse().map(s=>
-`<p>${esc(data.products.find(p=>p.id===s.productId)?.name||'পণ্য')} — ${money(s.total)}</p>`
-).join('')||'বিক্রির তথ্য নেই';
-
-document.getElementById('reportBox').innerHTML=
-`<div class="panel">
-মোট বিক্রি: ${money(sales)}<br>
-মোট ক্রয়: ${money(purchases)}<br>
-পণ্যের লাভ: ${money(profit)}<br>
-খরচ: ${money(expenses)}<br>
-নিট লাভ: ${money(profit-expenses)}<br>
-কাস্টমার বাকি: ${money(due)}
-</div>`;
-
-document.getElementById('shopName').value=data.settings.name||'RAIYAN TELECOM';
-document.getElementById('shopPhone').value=data.settings.phone||'';
-document.getElementById('shopAddress').value=data.settings.address||'';
-}
-
-function saveSettings(){
-data.settings={
-name:document.getElementById('shopName').value,
-phone:document.getElementById('shopPhone').value,
-address:document.getElementById('shopAddress').value
-};
-save();
-alert('সেটিংস সংরক্ষণ হয়েছে');
-}
-
-function backupData(){
-let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-let a=document.createElement('a');
-a.href=URL.createObjectURL(blob);
-a.download='raiyan-telecom-backup.json';
-a.click();
-}
-
-function restoreData(e){
-let f=e.target.files[0];
-if(!f)return;
-let r=new FileReader();
-r.onload=()=>{
-try{
-let x=JSON.parse(r.result);
-if(!x.products||!x.sales)throw Error();
-if(!confirm('বর্তমান তথ্যের বদলে ব্যাকআপ বসবে?'))return;
-data={...empty(),...x};
-save();
-alert('ব্যাকআপ ফিরিয়ে আনা হয়েছে');
-}catch(err){
-alert('ব্যাকআপ ফাইল সঠিক নয়');
-}
-};
-r.readAsText(f);
-}
-
-renderAll();
-</script>
-</body>
-</html>
+function table(type,headers,rows){let el=document.getElementById(type+'Table');if(!el)return;if(!rows.length){el.innerHTML='<div class="empty">এখনো কোনো তথ্য যোগ করা হয়নি</div>';return}el.innerHTML=`<div class="tablewrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}<th>অ্যাকশন</th></tr></thead><tbody>${rows.map(r=>`<tr>${r.cells.map(c=>`<td>${c??''}</td>`).join('')}<td><div class="actions">${r.actions}</div></td></tr>`).join('')}</tbody></table></div>`}
+function btnEdit(t,x){return `<button class="secondary" onclick="editItem('${t}','${x.id}')">এডিট</button><button class="danger" onclick="delItem('${t}','${x.id}')">ডিলিট</button>`}
+function editItem(t,i){let x=data[t].find(a=>a.id===i);if(x)openForm(t,x)}
+function delItem(t,i){if(!confirm('এই তথ্যটি মুছে ফেলবেন?'))return;let x=data[t].find(a=>a.id===i);if(!x)return;
+if(t==='products'&&(data.sales.some(a=>a.productId===i)||data.purchases.some(a=>a.productId===i))){alert('এই পণ্যের বিক্রি/ক্রয়ের রেকর্ড আছে, তাই ডিলিট করা যাবে না');return}
+if(t==='sales'||t==='purchases')stockEffect(t,x,1);
+data[t]=data[t].filter(a=>a.id!==i);save()}
+function renderProducts(){let q=(document.getElementById('productSearch')?.value||'').toLowerCase();let a=data.products.filter(p=>(p.name+' '+p.code+' '+p.category).toLowerCase().includes(q));table('products',['ছবি','নাম','ক্যাটাগরি','কোড','ক্রয়','বিক্রয়','লাভ','স্টক'],a.map(p=>({cells:[p.photo?`<img width="38" src="${p.photo}">`:'—',esc(p.name),esc(p.category),esc(p.code),money(p.buy),money(p.price),money(p.price-p.buy),p.stock],actions:btnEdit('products',p)})))}
+function renderSimple(t){let q=(document.getElementById(t.slice(0,-1)+'Search')?.value||'').toLowerCase();let a=data[t].filter(x=>(x.name+' '+x.phone).toLowerCase().includes(q));table(t,['নাম','মোবাইল','ঠিকানা'],a.map(x=>({cells:[esc(x.name),esc(x.phone),esc(x.address||x.note)],actions:btnEdit(t,x)})))}
+function renderList(t,heads,mapper){table(t,heads,data[t].slice().reverse().map(x=>({cells:mapper(x),actions:btnEdit(t,x)})))}
+function aggregateLedger(records,serviceField,k
