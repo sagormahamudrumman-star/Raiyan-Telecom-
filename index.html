@@ -64,17 +64,17 @@ td,th{padding:10px;border-bottom:1px solid var(--line);text-align:left}th{color:
 <div class="panel"><h3>📈 সাম্প্রতিক ১০টি বিক্রি</h3><div id="recent"></div></div>
 <div class="panel"><h3>⚠️ কম স্টক সতর্কতা</h3><div id="lowStock"></div></div>
 </section>
-<section id="products" class="page"><h2>পণ্য ব্যবস্থাপনা</h2><div class="toolbar"><input id="productSearch" placeholder="পণ্য/কোড/ক্যাটাগরি খুঁজুন" oninput="renderProducts()"><button onclick="openForm('products')">+ পণ্য যোগ</button></div><div id="productsTable"></div></section>
-<section id="sales" class="page"><h2>বিক্রি</h2><button onclick="openForm('sales')">+ নতুন বিক্রি</button><div id="salesTable"></div></section>
-<section id="purchases" class="page"><h2>পণ্য ক্রয়</h2><button onclick="openForm('purchases')">+ ক্রয় যোগ</button><div id="purchasesTable"></div></section>
-<section id="customers" class="page"><h2>কাস্টমার</h2><div class="toolbar"><input id="customerSearch" placeholder="নাম/মোবাইল খুঁজুন" oninput="renderSimple('customers')"><button onclick="openForm('customers')">+ কাস্টমার যোগ</button></div><div id="customersTable"></div></section>
-<section id="suppliers" class="page"><h2>সাপ্লায়ার</h2><div class="toolbar"><input id="supplierSearch" placeholder="নাম/মোবাইল খুঁজুন" oninput="renderSimple('suppliers')"><button onclick="openForm('suppliers')">+ সাপ্লায়ার যোগ</button></div><div id="suppliersTable"></div></section>
-<section id="transactions" class="page"><h2>সাধারণ লেনদেন</h2><button onclick="openForm('transactions')">+ লেনদেন যোগ</button><div id="transactionsTable"></div></section>
-<section id="expenses" class="page"><h2>দোকানের খরচ</h2><button onclick="openForm('expenses')">+ খরচ যোগ</button><div id="expensesTable"></div></section>
-<section id="employees" class="page"><h2>কর্মচারী</h2><button onclick="openForm('employees')">+ কর্মচারী যোগ</button><div id="employeesTable"></div></section>
-<section id="mobileBank" class="page"><h2>📱 মোবাইল ব্যাংকিং</h2><div class="notice">বিকাশ, নগদ, রকেট ও উপায়ের ব্যালেন্স/ফ্লোট যোগ ও বিক্রির হিসাব আলাদা থাকবে। কমিশন বা লাভ আলাদাভাবে লিখুন।</div><div id="bankSummary" class="grid"></div><div class="toolbar"><button onclick="openForm('mobileOps')">+ ব্যাংকিং লেনদেন</button></div><div id="mobileOpsTable"></div></section>
-<section id="recharge" class="page"><h2>📡 মোবাইল রিচার্জ</h2><div class="notice">কোম্পানি অনুযায়ী রিচার্জ ব্যালেন্স কেনা, বিক্রি, অবশিষ্ট ও লাভ হিসাব হবে।</div><div id="rechargeSummary" class="grid"></div><div class="toolbar"><button onclick="openForm('rechargeOps')">+ রিচার্জ লেনদেন</button></div><div id="rechargeOpsTable"></div></section>
-<section id="cards" class="page"><h2>🎫 মোবাইল কার্ড</h2><div id="cardSummary" class="grid"></div><div class="toolbar"><button onclick="openForm('cardOps')">+ কার্ড কেনা / বিক্রি</button></div><div id="cardOpsTable"></div></section>
+<section id="products" class="page"><h2>পণ্য ব্যবস্থাপনা</h2><div class="toolbar"><input id="productSearch" placeholder="পণ্য/কোড/ক্যাটাগরি খুঁজুন" oninput="renderProducts()"><button onclick="openForm('products')">+ পণ্য যোগ</button><button class="danger" onclick="clearSection('products')">সব পণ্য ডিলিট</button></div><div class="notice">প্রতিটি রেকর্ডের পাশে এডিট ও ডিলিট বাটন থাকবে।</div><div id="productsTable"></div></section>
+<section id="sales" class="page"><h2>বিক্রি</h2><button onclick="openForm('sales')">+ নতুন বিক্রি</button> <button class="danger" onclick="clearSection('sales')">সব বিক্রি ডিলিট</button><div id="salesTable"></div></section>
+<section id="purchases" class="page"><h2>পণ্য ক্রয়</h2><button onclick="openForm('purchases')">+ ক্রয় যোগ</button> <button class="danger" onclick="clearSection('purchases')">সব ক্রয় ডিলিট</button><div id="purchasesTable"></div></section>
+<section id="customers" class="page"><h2>কাস্টমার</h2><div class="toolbar"><input id="customerSearch" placeholder="নাম/মোবাইল খুঁজুন" oninput="renderSimple('customers')"><button onclick="openForm('customers')">+ কাস্টমার যোগ</button><button class="danger" onclick="clearSection('customers')">সব কাস্টমার ডিলিট</button></div><div id="customersTable"></div></section>
+<section id="suppliers" class="page"><h2>সাপ্লায়ার</h2><div class="toolbar"><input id="supplierSearch" placeholder="নাম/মোবাইল খুঁজুন" oninput="renderSimple('suppliers')"><button onclick="openForm('suppliers')">+ সাপ্লায়ার যোগ</button><button class="danger" onclick="clearSection('suppliers')">সব সাপ্লায়ার ডিলিট</button></div><div id="suppliersTable"></div></section>
+<section id="transactions" class="page"><h2>সাধারণ লেনদেন</h2><button onclick="openForm('transactions')">+ লেনদেন যোগ</button> <button class="danger" onclick="clearSection('transactions')">সব লেনদেন ডিলিট</button><div id="transactionsTable"></div></section>
+<section id="expenses" class="page"><h2>দোকানের খরচ</h2><button onclick="openForm('expenses')">+ খরচ যোগ</button> <button class="danger" onclick="clearSection('expenses')">সব খরচ ডিলিট</button><div id="expensesTable"></div></section>
+<section id="employees" class="page"><h2>কর্মচারী</h2><button onclick="openForm('employees')">+ কর্মচারী যোগ</button> <button class="danger" onclick="clearSection('employees')">সব কর্মচারী ডিলিট</button><div id="employeesTable"></div></section>
+<section id="mobileBank" class="page"><h2>📱 মোবাইল ব্যাংকিং</h2><div class="notice">বিকাশ, নগদ, রকেট ও উপায়ের ব্যালেন্স/ফ্লোট যোগ ও বিক্রির হিসাব আলাদা থাকবে। কমিশন বা লাভ আলাদাভাবে লিখুন।</div><div id="bankSummary" class="grid"></div><div class="toolbar"><button onclick="openForm('mobileOps')">+ ব্যাংকিং লেনদেন</button><button class="danger" onclick="clearSection('mobileOps')">সব ব্যাংকিং রেকর্ড ডিলিট</button></div><div id="mobileOpsTable"></div></section>
+<section id="recharge" class="page"><h2>📡 মোবাইল রিচার্জ</h2><div class="notice">কোম্পানি অনুযায়ী রিচার্জ ব্যালেন্স কেনা, বিক্রি, অবশিষ্ট ও লাভ হিসাব হবে।</div><div id="rechargeSummary" class="grid"></div><div class="toolbar"><button onclick="openForm('rechargeOps')">+ রিচার্জ লেনদেন</button><button class="danger" onclick="clearSection('rechargeOps')">সব রিচার্জ রেকর্ড ডিলিট</button></div><div id="rechargeOpsTable"></div></section>
+<section id="cards" class="page"><h2>🎫 মোবাইল কার্ড</h2><div id="cardSummary" class="grid"></div><div class="toolbar"><button onclick="openForm('cardOps')">+ কার্ড কেনা / বিক্রি</button><button class="danger" onclick="clearSection('cardOps')">সব কার্ড রেকর্ড ডিলিট</button></div><div id="cardOpsTable"></div></section>
 <section id="reports" class="page"><h2>রিপোর্ট</h2><div class="toolbar"><label>শুরু <input id="reportFrom" type="date"></label><label>শেষ <input id="reportTo" type="date"></label><button onclick="renderReports()">হিসাব দেখুন</button></div><div id="reportBox"></div><button onclick="window.print()">প্রিন্ট / PDF</button></section>
 <section id="settings" class="page"><h2>⚙️ সেটিংস ও ব্যাকআপ</h2><div class="panel">
 <label>দোকানের নাম</label><input id="shopName" placeholder="দোকানের নাম">
@@ -82,7 +82,7 @@ td,th{padding:10px;border-bottom:1px solid var(--line);text-align:left}th{color:
 <label>মোবাইল নম্বর</label><input id="shopPhone" placeholder="01XXXXXXXXX">
 <label>ঠিকানা</label><input id="shopAddress" placeholder="দোকানের ঠিকানা">
 <label>অ্যাপ / দোকানের ছবি (লোগো)</label><input id="shopLogo" type="file" accept="image/*"><img id="logoPreview" class="logoPreview" alt="লোগো প্রিভিউ" style="display:none">
-<div class="toolbar"><button onclick="saveSettings()">সেটিংস সংরক্ষণ</button><button class="secondary" onclick="backupData()">ব্যাকআপ ডাউনলোড</button></div>
+<div class="toolbar"><button onclick="saveSettings()">সেটিংস সংরক্ষণ</button><button class="secondary" onclick="backupData()">ব্যাকআপ ডাউনলোড</button><button class="danger" onclick="clearEverything()">সব ডেটা ডিলিট</button></div>
 <label>ব্যাকআপ ফিরিয়ে আনুন</label><input type="file" accept="application/json" onchange="restoreData(event)">
 <div class="notice">ডেটা এই ব্রাউজারের Local Storage-এ থাকবে। নিয়মিত JSON ব্যাকআপ ডাউনলোড করে রাখুন।</div>
 </div></section>
@@ -164,7 +164,69 @@ function delItem(t,i){if(!confirm('এই তথ্যটি মুছে ফে
 if(t==='products'&&(data.sales.some(a=>a.productId===i)||data.purchases.some(a=>a.productId===i))){alert('এই পণ্যের বিক্রি/ক্রয়ের রেকর্ড আছে, তাই ডিলিট করা যাবে না');return}
 if(t==='sales'||t==='purchases')stockEffect(t,x,1);
 data[t]=data[t].filter(a=>a.id!==i);save()}
+
+function clearSection(type){
+ const labels={products:'সব পণ্য',sales:'সব বিক্রির রেকর্ড',purchases:'সব ক্রয়ের রেকর্ড',customers:'সব কাস্টমার',suppliers:'সব সাপ্লায়ার',transactions:'সব লেনদেন',expenses:'সব খরচ',employees:'সব কর্মচারী',mobileOps:'সব মোবাইল ব্যাংকিং রেকর্ড',rechargeOps:'সব রিচার্জ রেকর্ড',cardOps:'সব মোবাইল কার্ড রেকর্ড'};
+ if(!data[type] || !Array.isArray(data[type])) return;
+ if(!data[type].length){alert('মুছে ফেলার মতো কোনো তথ্য নেই');return}
+ if(type==='products' && (data.sales.length || data.purchases.length)){
+   alert('পণ্য মুছতে হলে আগে বিক্রি ও ক্রয়ের রেকর্ড মুছুন। এতে পুরোনো হিসাবের সঙ্গে পণ্যের সংযোগ নষ্ট হবে না।');
+   return;
+ }
+ if(!confirm(labels[type]+' স্থায়ীভাবে মুছে ফেলবেন? এই কাজ ফিরিয়ে আনা যাবে না। আগে ব্যাকআপ রাখুন।')) return;
+ if(type==='sales' || type==='purchases'){
+   data[type].forEach(x=>stockEffect(type,x,1));
+ }
+ data[type]=[];
+ save();
+}
+function clearEverything(){
+ if(!confirm('সতর্কতা: পণ্য, বিক্রি, ক্রয়, কাস্টমার, সাপ্লায়ার, লেনদেন, খরচ, কর্মচারী, মোবাইল ব্যাংকিং, রিচার্জ ও কার্ডসহ সব ব্যবসার ডেটা মুছে যাবে। দোকানের সেটিংস থাকবে। আপনি কি নিশ্চিত?')) return;
+ if(!confirm('শেষবার নিশ্চিত করুন: সব ব্যবসার ডেটা স্থায়ীভাবে ডিলিট করবেন? আগে ব্যাকআপ নিয়েছেন?')) return;
+ const settings={...data.settings};
+ data=empty();
+ data.settings=settings;
+ save();
+ alert('সব ব্যবসার ডেটা মুছে ফেলা হয়েছে। দোকানের সেটিংস রাখা হয়েছে।');
+}
+
 function renderProducts(){let q=(document.getElementById('productSearch')?.value||'').toLowerCase();let a=data.products.filter(p=>(p.name+' '+p.code+' '+p.category).toLowerCase().includes(q));table('products',['ছবি','নাম','ক্যাটাগরি','কোড','ক্রয়','বিক্রয়','লাভ','স্টক'],a.map(p=>({cells:[p.photo?`<img width="38" src="${p.photo}">`:'—',esc(p.name),esc(p.category),esc(p.code),money(p.buy),money(p.price),money(p.price-p.buy),p.stock],actions:btnEdit('products',p)})))}
 function renderSimple(t){let q=(document.getElementById(t.slice(0,-1)+'Search')?.value||'').toLowerCase();let a=data[t].filter(x=>(x.name+' '+x.phone).toLowerCase().includes(q));table(t,['নাম','মোবাইল','ঠিকানা'],a.map(x=>({cells:[esc(x.name),esc(x.phone),esc(x.address||x.note)],actions:btnEdit(t,x)})))}
 function renderList(t,heads,mapper){table(t,heads,data[t].slice().reverse().map(x=>({cells:mapper(x),actions:btnEdit(t,x)})))}
-function aggregateLedger(records,serviceField,k
+function aggregateLedger(records,serviceField,kindBuy,kindSell,amountField){
+let out={};records.forEach(x=>{let k=x[serviceField];if(!out[k])out[k]={bought:0,sold:0,balance:0,profit:0};let a=Number(x[amountField]||0);if(x.kind===kindBuy){out[k].bought+=a;out[k].balance+=a}else if(x.kind===kindSell){out[k].sold+=a;out[k].balance-=a;out[k].profit+=Number(x.commission||0)+Math.max(0,Number(x.salePrice||0)-a)}});return out}
+function mobileServiceCards(elId,records,services,buyKind,sellKind,amountKey){let map=aggregateLedger(records,'service',buyKind,sellKind,amountKey);document.getElementById(elId).innerHTML=services.map(s=>{let x=map[s]||{bought:0,sold:0,balance:0,profit:0};return `<div class="stat"><span>${esc(s)}</span><b>${money(x.balance)}</b><small>কেনা ${money(x.bought)} • বিক্রি ${money(x.sold)} • লাভ ${money(x.profit)}</small></div>`}).join('')}
+function renderAll(){
+renderProducts();renderSimple('customers');renderSimple('suppliers');
+renderList('sales',['তারিখ','পণ্য','পরিমাণ','মোট','জমা','বাকি','কাস্টমার'],s=>[s.date,esc(data.products.find(p=>p.id===s.productId)?.name||''),s.qty,money(s.total),money(s.paid),money(s.due),esc(s.customer)]);
+renderList('purchases',['তারিখ','পণ্য','পরিমাণ','মোট','পরিশোধ','বাকি','সাপ্লায়ার'],s=>[s.date,esc(data.products.find(p=>p.id===s.productId)?.name||''),s.qty,money(s.total),money(s.paid),money(s.due),esc(s.supplier)]);
+renderList('transactions',['তারিখ','ধরন','মাধ্যম','টাকা','বিবরণ'],x=>[x.date,x.kind,x.method,money(x.amount),esc(x.details)]);
+renderList('expenses',['তারিখ','খাত','টাকা','বিবরণ'],x=>[x.date,esc(x.category),money(x.amount),esc(x.details)]);
+renderList('employees',['নাম','মোবাইল','বেতন'],x=>[esc(x.name),esc(x.phone),money(x.salary)]);
+renderList('mobileOps',['তারিখ','সার্ভিস','ধরন','পরিমাণ','খরচ','কমিশন','বিবরণ'],x=>[x.date,x.service,x.kind,money(x.amount),money(x.cost),money(x.commission),esc(x.details)]);
+renderList('rechargeOps',['তারিখ','কোম্পানি','ধরন','পরিমাণ','খরচ','আদায়','মোবাইল'],x=>[x.date,x.service,x.kind,money(x.amount),money(x.cost),money(x.salePrice),esc(x.phone)]);
+renderList('cardOps',['তারিখ','কোম্পানি','ধরন','কার্ড মূল্য','সংখ্যা','মোট','বিবরণ'],x=>[x.date,x.service,x.kind,money(x.denomination),x.qty,money(x.total),esc(x.details)]);
+let sum=(a,k)=>a.reduce((s,x)=>s+Number(x[k]||0),0);
+let sales=sum(data.sales,'total'),purchases=sum(data.purchases,'total'),paid=sum(data.sales,'paid'),purchasePaid=sum(data.purchases,'paid'),due=sum(data.sales,'due'),supplierDue=sum(data.purchases,'due'),profit=data.sales.reduce((s,x)=>s+Number(x.total||0)-Number(x.cost||0),0),expenses=sum(data.expenses,'amount'),stock=data.products.reduce((s,x)=>s+Number(x.stock||0),0),stockValue=data.products.reduce((s,x)=>s+Number(x.stock||0)*Number(x.buy||0),0),today=dateNow();
+let stats=[['💰 মোট বিক্রি',money(sales)],['🛒 মোট পণ্য ক্রয়',money(purchases)],['📥 বিক্রির আদায়',money(paid)],['📤 ক্রয়ের পরিশোধ',money(purchasePaid)],['👥 কাস্টমার বাকি',money(due)],['🚚 সাপ্লায়ার বাকি',money(supplierDue)],['📈 পণ্যের মোট লাভ',money(profit)],['💸 দোকানের খরচ',money(expenses)],['🏆 খরচ বাদে নিট লাভ',money(profit-expenses)],['📦 মোট পণ্য',data.products.length+' টি'],['🔢 মোট স্টক',stock+' পিস'],['🏷️ স্টকের ক্রয়মূল্য',money(stockValue)],['☀️ আজকের বিক্রি',money(sum(data.sales.filter(x=>x.date===today),'total'))],['🧾 আজকের ক্রয়',money(sum(data.purchases.filter(x=>x.date===today),'total'))]];
+document.getElementById('stats').innerHTML=stats.map(x=>`<div class="stat"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('');
+mobileServiceCards('bankSummary',data.mobileOps,banks,'ব্যালেন্স যোগ','বিক্রি / ক্যাশ আউট','amount');
+mobileServiceCards('rechargeSummary',data.rechargeOps,companies,'ব্যালেন্স কেনা','রিচার্জ বিক্রি','amount');
+let cardMap={};data.cardOps.forEach(x=>{let k=x.service;if(!cardMap[k])cardMap[k]={bought:0,sold:0,balance:0};let n=Number(x.denomination||0)*Number(x.qty||0);if(x.kind==='কার্ড কেনা'){cardMap[k].bought+=n;cardMap[k].balance+=Number(x.qty||0)}else{cardMap[k].sold+=n;cardMap[k].balance-=Number(x.qty||0)}});
+document.getElementById('cardSummary').innerHTML=companies.map(s=>{let x=cardMap[s]||{bought:0,sold:0,balance:0};return `<div class="stat"><span>${s} কার্ড</span><b>${x.balance} টি</b><small>কেনা ${money(x.bought)} • বিক্রি ${money(x.sold)}</small></div>`}).join('');
+let allServices=[...banks,...companies];document.getElementById('serviceStats').innerHTML=allServices.map(s=>{let rec=banks.includes(s)?data.mobileOps:data.rechargeOps;let kind=banks.includes(s)?'ব্যালেন্স যোগ':'ব্যালেন্স কেনা';let sell=banks.includes(s)?'বিক্রি / ক্যাশ আউট':'রিচার্জ বিক্রি';let m=aggregateLedger(rec,'service',kind,sell,'amount')[s]||{balance:0};return `<div class="stat"><span>${s}</span><b>${money(m.balance)}</b></div>`}).join('');
+document.getElementById('recent').innerHTML=data.sales.slice().reverse().slice(0,10).map(s=>`<div style="padding:9px;border-bottom:1px solid #285344"><b>${esc(data.products.find(p=>p.id===s.productId)?.name||'পণ্য')}</b><br><small>${esc(s.date||'')} | পরিমাণ: ${s.qty}</small><br><span style="color:#8ff0bb">বিক্রি: ${money(s.total)}</span> <span style="color:#ffd27a">| বাকি: ${money(s.due)}</span></div>`).join('')||'এখনো কোনো বিক্রি নেই';
+let low=data.products.filter(p=>Number(p.stock||0)<=Number(p.min||0));document.getElementById('lowStock').innerHTML=low.map(p=>`<div style="padding:8px">${esc(p.name)} — <span style="color:#ffb477">${p.stock} পিস</span></div>`).join('')||'সব পণ্যের স্টক ঠিক আছে';
+renderReports();
+document.getElementById('shopName').value=data.settings.name||'RAIYAN TELECOM';document.getElementById('websiteName').value=data.settings.websiteName||'';document.getElementById('shopPhone').value=data.settings.phone||'';document.getElementById('shopAddress').value=data.settings.address||'';
+let logo=document.getElementById('logoPreview');if(data.settings.logo){logo.src=data.settings.logo;logo.style.display='block'}else logo.style.display='none';
+document.getElementById('headerName').textContent=data.settings.name||'RAIYAN TELECOM';document.getElementById('headerSubtitle').textContent=(data.settings.websiteName||'')+' • দোকান ম্যানেজমেন্ট সিস্টেম';let h=document.getElementById('headerLogo');if(data.settings.logo){h.src=data.settings.logo;h.style.display='block'}else h.style.display='none';
+}
+function renderReports(){let from=document.getElementById('reportFrom')?.value||'',to=document.getElementById('reportTo')?.value||'';let within=x=>(!from||x.date>=from)&&(!to||x.date<=to);let ss=data.sales.filter(within),pp=data.purchases.filter(within),ee=data.expenses.filter(within);let sum=(a,k)=>a.reduce((s,x)=>s+Number(x[k]||0),0);let sales=sum(ss,'total'),purchase=sum(pp,'total'),profit=ss.reduce((s,x)=>s+Number(x.total||0)-Number(x.cost||0),0),expense=sum(ee,'amount');document.getElementById('reportBox').innerHTML=`<div class="panel">মোট বিক্রি: ${money(sales)}<br>মোট ক্রয়: ${money(purchase)}<br>বিক্রির আদায়: ${money(sum(ss,'paid'))}<br>ক্রয়ের পরিশোধ: ${money(sum(pp,'paid'))}<br>কাস্টমার বাকি: ${money(sum(ss,'due'))}<br>সাপ্লায়ার বাকি: ${money(sum(pp,'due'))}<br>পণ্যের লাভ: ${money(profit)}<br>দোকানের খরচ: ${money(expense)}<br><b style="color:#8ff0bb">নিট লাভ: ${money(profit-expense)}</b></div>`}
+async function saveSettings(){let file=document.getElementById('shopLogo').files[0];if(file)data.settings.logo=await fileData(file);data.settings={...data.settings,name:document.getElementById('shopName').value.trim()||'RAIYAN TELECOM',websiteName:document.getElementById('websiteName').value.trim(),phone:document.getElementById('shopPhone').value,address:document.getElementById('shopAddress').value};save();alert('সেটিংস সংরক্ষণ হয়েছে')}
+function backupData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='raiyan-telecom-backup.json';a.click();URL.revokeObjectURL(a.href)}
+function restoreData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.products||!x.sales)throw Error();if(!confirm('বর্তমান তথ্যের বদলে ব্যাকআপ বসবে?'))return;data={...empty(),...x,settings:{...empty().settings,...(x.settings||{})}};save();alert('ব্যাকআপ ফিরিয়ে আনা হয়েছে')}catch(err){alert('ব্যাকআপ ফাইল সঠিক নয়')}};r.readAsText(f)}
+renderAll();
+</script>
+</body>
+</html>
