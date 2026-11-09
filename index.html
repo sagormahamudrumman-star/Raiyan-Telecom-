@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#075e45">
+<title>Raiyan Telecom</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f1f5f3;color:#172b25;font-family:Arial,sans-serif}
+header{background:linear-gradient(135deg,#075e45,#13a477);color:white;padding:24px 18px;border-radius:0 0 25px 25px}
+header h2{margin:0;font-size:25px}
+header p{margin:7px 0 0;font-size:13px}
+main{padding:16px;max-width:650px;margin:auto}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:white;padding:17px;border-radius:15px;box-shadow:0 2px 9px #0000000c}
+.card small{color:#65756e}
+.card h2{margin:10px 0 0;font-size:21px;color:#087653}
+h3{margin:22px 0 12px}
+button{border:0;border-radius:10px;padding:12px;background:#087653;color:white;font-weight:bold;cursor:pointer}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions button{min-height:48px}
+.panel{background:white;padding:16px;border-radius:15px;margin-top:14px}
+input,select{width:100%;padding:13px;margin:7px 0 12px;border:1px solid #d5dfda;border-radius:9px;font-size:15px;background:white}
+label{font-size:13px;font-weight:bold}
+.full{width:100%}
+.item{padding:12px 0;border-bottom:1px solid #e7ece9;display:flex;justify-content:space-between;gap:10px}
+.item small{color:#758078}
+.danger{background:#bd3434;padding:7px 10px}
+.secondary{background:#e6f3ed;color:#087653}
+footer{text-align:center;padding:25px;color:#7a8982;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<h2>📱 Raiyan Telecom</h2>
+<p>আপনার ব্যবসা, আপনার নিয়ন্ত্রণ</p>
+</header>
+<main>
+<div class="cards">
+<div class="card"><small>মোট বিক্রি</small><h2 id="sales">৳০</h2></div>
+<div class="card"><small>মোট খরচ</small><h2 id="expenses">৳০</h2></div>
+<div class="card"><small>মোট লাভ</small><h2 id="profit">৳০</h2></div>
+<div class="card"><small>মোট বাকি</small><h2 id="dues">৳০</h2></div>
+</div>
+
+<h3>⚡ দ্রুত কাজ</h3>
+<div class="actions">
+<button onclick="showForm('বিক্রি')">💰 নতুন বিক্রি</button>
+<button onclick="showForm('রিচার্জ')">📱 রিচার্জ</button>
+<button onclick="showForm('খরচ')">💸 নতুন খরচ</button>
+<button onclick="showForm('বাকি')">🧾 নতুন বাকি</button>
+</div>
+
+<section class="panel" id="entry">
+<h3 style="margin-top:0">নতুন হিসাব যোগ করুন</h3>
+<label>হিসাবের ধরন</label>
+<select id="type">
+<option>বিক্রি</option>
+<option>রিচার্জ</option>
+<option>খরচ</option>
+<option>বাকি</option>
+<option>বাকি আদায়</option>
+</select>
+<label>নাম / বিবরণ</label>
+<input id="note" placeholder="কাস্টমার বা লেনদেনের নাম">
+<label>টাকার পরিমাণ</label>
+<input id="amount" type="number" min="0.01" step="0.01" placeholder="টাকার পরিমাণ">
+<label>মোবাইল নম্বর (ঐচ্ছিক)</label>
+<input id="phone" type="tel" placeholder="01XXXXXXXXX">
+<button class="full" onclick="saveEntry()">হিসাব সংরক্ষণ করুন</button>
+</section>
+
+<section class="panel">
+<h3 style="margin-top:0">📦 পণ্য ও স্টক</h3>
+<input id="product" placeholder="পণ্যের নাম">
+<input id="quantity" type="number" min="1" placeholder="পরিমাণ">
+<button class="full" onclick="addProduct()">পণ্য যোগ করুন</button>
+<div id="products"></div>
+</section>
+
+<section class="panel">
+<h3 style="margin-top:0">📒 লেনদেনের তালিকা</h3>
+<div id="history"></div>
+</section>
+
+<section class="panel">
+<h3 style="margin-top:0">💾 ডেটা ব্যাকআপ</h3>
+<p style="font-size:13px;color:#65756e">আপনার হিসাব ফোনে সংরক্ষিত থাকবে। নিয়মিত ব্যাকআপ রাখুন।</p>
+<button class="full" onclick="backup()">ব্যাকআপ ডাউনলোড করুন</button>
+<br><br>
+<label>ব্যাকআপ ফাইল ফিরিয়ে আনুন</label>
+<input type="file" id="restoreFile" accept=".json">
+<button class="full secondary" onclick="restore()">রিস্টোর করুন</button>
+</section>
+</main>
+<footer>© Raiyan Telecom | Version 1.0</footer>
+
+<script>
+let data=JSON.parse(localStorage.getItem('raiyanData')||'{"entries":[],"products":[]}');
+
+function money(n){
+return '৳'+Number(n).toLocaleString('en-IN');
+}
+function save(){
+localStorage.setItem('raiyanData',JSON.stringify(data));
+render();
+}
+function showForm(t){
+document.getElementById('type').value=t;
+document.getElementById('entry').scrollIntoView({behavior:'smooth'});
+}
+function saveEntry(){
+let type=document.getElementById('type').value;
+let note=document.getElementById('note').value.trim();
+let amount=Number(document.getElementById('amount').value);
+let phone=document.getElementById('phone').value.trim();
+if(!amount||amount<=0){alert('সঠিক টাকার পরিমাণ লিখুন');return;}
+data.entries.unshift({
+id:Date.now(),type,note:note||type,amount,phone,
+date:new Date().toLocaleString('bn-BD')
+});
+document.getElementById('note').value='';
+document.getElementById('amount').value='';
+document.getElementById('phone').value='';
+save();
+alert('হিসাব সংরক্ষণ হয়েছে');
+}
+function addProduct(){
+let name=document.getElementById('product').value.trim();
+let qty=Number(document.getElementById('quantity').value);
+if(!name||qty<=0){alert('পণ্যের নাম ও সঠিক পরিমাণ দিন');return;}
+data.products.push({name,qty});
+document.getElementById('product').value='';
+document.getElementById('quantity').value='';
+save();
+}
+function deleteEntry(id){
+if(confirm('এই হিসাব মুছে ফেলবেন?')){
+data.entries=data.entries.filter(x=>x.id!==id);
+save();
+}
+}
+function deleteProduct(i){
+if(confirm('পণ্যটি মুছে ফেলবেন?')){
+data.products.splice(i,1);
+save();
+}
+}
+function render(){
+let sum=t=>data.entries.filter(x=>x.type===t).reduce((a,b)=>a+b.amount,0);
+let sales=sum('বিক্রি')+sum('রিচার্জ');
+let expenses=sum('খরচ');
+let dues=sum('বাকি')-sum('বাকি আদায়');
+document.getElementById('sales').textContent=money(sales);
+document.getElementById('expenses').textContent=money(expenses);
+document.getElementById('profit').textContent=money(sales-expenses);
+document.getElementById('dues').textContent=money(Math.max(0,dues));
+
+document.getElementById('history').innerHTML=data.entries.length?
+data.entries.map(x=>`
+<div class="item">
+<div><b>${escapeHTML(x.note)}</b><br>
+<small>${escapeHTML(x.type)} · ${escapeHTML(x.date)}${x.phone?' · '+escapeHTML(x.phone):''}</small></div>
+<div><b>${money(x.amount)}</b><br>
+<button class="danger" onclick="deleteEntry(${x.id})">মুছুন</button></div>
+</div>`).join(''):'এখনো কোনো হিসাব নেই';
+
+document.getElementById('products').innerHTML=data.products.length?
+data.products.map((p,i)=>`
+<div class="item"><div><b>${escapeHTML(p.name)}</b><br>
+<small>স্টক: ${p.qty}</small></div>
+<button class="danger" onclick="deleteProduct(${i})">মুছুন</button></div>
+`).join(''):'কোনো পণ্য যোগ করা হয়নি';
+}
+function escapeHTML(s){
+return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function backup(){
+let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+let a=document.createElement('a');
+a.href=URL.createObjectURL(blob);
+a.download='Raiyan-Telecom-Backup.json';
+a.click();
+URL.revokeObjectURL(a.href);
+}
+function restore(){
+let file=document.getElementById('restoreFile').files[0];
+if(!file){alert('আগে ব্যাকআপ ফাইল নির্বাচন করুন');return;}
+let reader=new FileReader();
+reader.onload=()=>{
+try{
+let d=JSON.parse(reader.result);
+if(!Array.isArray(d.entries)||!Array.isArray(d.products))throw Error();
+if(confirm('বর্তমান হিসাবের পরিবর্তে ব্যাকআপের তথ্য বসাবেন?')){
+data=d;save();alert('ব্যাকআপ ফিরিয়ে আনা হয়েছে');
+}
+}catch(e){alert('ভুল ব্যাকআপ ফাইল');}
+};
+reader.readAsText(file);
+}
+render();
+</script>
+</body>
+</html>
