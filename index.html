@@ -3,158 +3,508 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raiyan Telecom</title>
+<meta name="theme-color" content="#101c2d">
+<title>RAIYAN TELECOM</title>
+
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-  body { background: #f2f4f3; padding-bottom: 30px; }
-  .header { background: #1a8f4c; color: #fff; padding: 20px; text-align: center; border-radius: 0 0 20px 20px; }
-  .header h1 { font-size: 22px; }
-  .header p { font-size: 13px; opacity: .9; margin-top: 4px; }
-  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
-  .card { background: #fff; border-radius: 12px; padding: 14px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
-  .card span { font-size: 12px; color: #666; }
-  .card b { display: block; font-size: 20px; color: #1a8f4c; margin-top: 6px; }
-  .section { padding: 0 15px; margin-top: 10px; }
-  .section h2 { font-size: 16px; margin-bottom: 10px; color: #222; }
-  .form-box { background: #fff; border-radius: 12px; padding: 15px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
-  .form-box input, .form-box select { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
-  .form-box button { width: 100%; padding: 12px; background: #1a8f4c; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: bold; }
-  .record-card { background: #fff; border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; gap: 12px; align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
-  .record-card img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; background: #eee; }
-  .record-card .info { font-size: 13px; line-height: 1.6; }
-  .record-card .del { margin-left: auto; background: #e33; color: #fff; border: none; border-radius: 6px; padding: 6px 10px; font-size: 12px; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,"Noto Sans Bengali",sans-serif;background:#0b1422;color:#f1f5f9}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{width:245px;background:#101c2d;padding:20px 12px;position:fixed;inset:0 auto 0 0;overflow-y:auto;z-index:10;border-right:1px solid #26364b}
+.brand{display:flex;align-items:center;gap:12px;padding:8px 10px 22px;border-bottom:1px solid #29394c;margin-bottom:18px}
+.logo{background:#15966b;width:45px;height:45px;border-radius:13px;display:grid;place-items:center;font-size:24px}
+.brand h2{font-size:17px;color:#fff}
+.brand small{color:#9caec0;font-size:11px}
+.menu-label{color:#71849b;font-size:10px;padding:13px 12px 7px;letter-spacing:1px}
+.nav{width:100%;display:flex;align-items:center;gap:12px;border:0;background:transparent;color:#b9c7d8;padding:12px;border-radius:9px;text-align:left;margin:3px 0;font-size:13px}
+.nav:hover,.nav.active{background:#1b3445;color:#5be0a6}
+.main{margin-left:245px;width:calc(100% - 245px);padding:25px;min-width:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:25px;gap:12px}
+.topbar h1{font-size:23px}
+.topbar p{color:#92a5ba;font-size:12px;margin-top:5px}
+.status{background:#123d30;color:#5be0a6;border-radius:20px;padding:8px 12px;font-size:11px}
+.page{display:none}.page.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:20px}
+.card{background:#142236;border:1px solid #29394e;border-radius:13px;padding:17px;min-width:0}
+.stat-icon{font-size:24px;margin-bottom:12px}
+.stat-title{color:#91a5ba;font-size:12px}
+.stat-value{font-size:23px;font-weight:bold;margin-top:8px}
+.green{color:#5be0a6}.red{color:#fb8d8d}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 14px;flex-wrap:wrap}
+.section-head h2{font-size:17px}
+.btn{background:#15966b;border:0;color:white;padding:11px 15px;border-radius:8px;font-weight:bold;font-size:12px}
+.btn:hover{background:#10ad78}
+.btn.secondary{background:#263950}
+.btn.danger{background:#a83d48}
+.panel{background:#142236;border:1px solid #29394e;border-radius:13px;padding:17px;margin-bottom:17px}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:580px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #29394e;font-size:12px}
+th{color:#8fa5bc;font-weight:normal}
+td{color:#e3ebf3}
+.product-img{width:43px;height:43px;object-fit:cover;border-radius:8px;background:#263950}
+input,select,textarea{width:100%;background:#0c1929;border:1px solid #34465b;border-radius:8px;padding:11px;color:white;outline:none;margin-top:6px}
+input:focus,select:focus,textarea:focus{border-color:#20b982}
+label{display:block;font-size:12px;color:#a9bbce;margin-bottom:13px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.form-actions{display:flex;gap:9px;flex-wrap:wrap}
+.empty{text-align:center;color:#8396aa;padding:28px;font-size:13px}
+.search{max-width:260px}
+.actions{display:flex;gap:6px}
+.small-btn{border:0;border-radius:6px;padding:7px 9px;background:#263950;color:white;font-size:11px}
+.mobile-head{display:none}
+.info{font-size:12px;color:#8fa5bc;line-height:1.8}
+@media(max-width:850px){
+.sidebar{width:70px;padding:12px 7px}
+.brand{justify-content:center;padding:8px 0 18px}
+.brand-text,.menu-label,.nav span{display:none}
+.nav{justify-content:center;font-size:19px;padding:13px 4px}
+.main{margin-left:70px;width:calc(100% - 70px);padding:17px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+.main{padding:13px}
+.topbar h1{font-size:19px}
+.grid{gap:9px}
+.card{padding:13px}
+.stat-value{font-size:19px}
+.form-grid{grid-template-columns:1fr}
+.section-head h2{font-size:15px}
+}
 </style>
 </head>
+
 <body>
+<div class="app">
 
-<div class="header">
-  <h1>📞 Raiyan Telecom</h1>
-  <p>আপনার ব্যবসা, আপনার নিয়ন্ত্রণ</p>
+<aside class="sidebar">
+  <div class="brand">
+    <div class="logo">📱</div>
+    <div class="brand-text">
+      <h2>RAIYAN TELECOM</h2>
+      <small>SHOP MANAGEMENT</small>
+    </div>
+  </div>
+
+  <div class="menu-label">MAIN MENU</div>
+  <button class="nav active" data-page="dashboard">📊 <span>ড্যাশবোর্ড</span></button>
+  <button class="nav" data-page="products">📦 <span>পণ্য ব্যবস্থাপনা</span></button>
+  <button class="nav" data-page="sales">🛒 <span>বিক্রয়</span></button>
+  <button class="nav" data-page="purchases">🚚 <span>পণ্য ক্রয়</span></button>
+
+  <div class="menu-label">MANAGEMENT</div>
+  <button class="nav" data-page="customers">👥 <span>কাস্টমার</span></button>
+  <button class="nav" data-page="suppliers">🏢 <span>সাপ্লায়ার</span></button>
+  <button class="nav" data-page="banking">💳 <span>মোবাইল ব্যাংকিং</span></button>
+  <button class="nav" data-page="services">📲 <span>অন্যান্য সার্ভিস</span></button>
+
+  <div class="menu-label">FINANCE</div>
+  <button class="nav" data-page="expenses">💸 <span>আয় ও ব্যয়</span></button>
+  <button class="nav" data-page="reports">📈 <span>রিপোর্ট ও লাভ</span></button>
+
+  <div class="menu-label">SYSTEM</div>
+  <button class="nav" data-page="employees">👨‍💼 <span>কর্মচারী</span></button>
+  <button class="nav" data-page="backup">💾 <span>ব্যাকআপ</span></button>
+  <button class="nav" data-page="settings">⚙️ <span>সেটিংস</span></button>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div>
+      <h1 id="pageTitle">ড্যাশবোর্ড</h1>
+      <p id="today"></p>
+    </div>
+    <div class="status">● OFFLINE MODE</div>
+  </header>
+
+  <!-- DASHBOARD -->
+  <section class="page active" id="dashboard">
+    <div class="grid">
+      <div class="card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-title">মোট বিক্রয়</div>
+        <div class="stat-value" id="totalSales">৳ ০</div>
+      </div>
+      <div class="card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-title">মোট লাভ</div>
+        <div class="stat-value green" id="totalProfit">৳ ০</div>
+      </div>
+      <div class="card">
+        <div class="stat-icon">📦</div>
+        <div class="stat-title">মোট পণ্য</div>
+        <div class="stat-value" id="totalProducts">০</div>
+      </div>
+      <div class="card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-title">কাস্টমার</div>
+        <div class="stat-value" id="totalCustomers">০</div>
+      </div>
+      <div class="card">
+        <div class="stat-icon">🧾</div>
+        <div class="stat-title">মোট ক্রয়</div>
+        <div class="stat-value" id="totalPurchases">৳ ০</div>
+      </div>
+      <div class="card">
+        <div class="stat-icon">💳</div>
+        <div class="stat-title">কাস্টমারের বাকি</div>
+        <div class="stat-value red" id="totalDue">৳ ০</div>
+      </div>
+      <div class="card">
+        <div class="stat-icon">🏢</div>
+        <div class="stat-title">সাপ্লায়ার</div>
+        <div class="stat-value" id="totalSuppliers">০</div>
+      </div>
+      <div class="card">
+        <div class="stat-icon">💸</div>
+        <div class="stat-title">মোট খরচ</div>
+        <div class="stat-value red" id="totalExpenses">৳ ০</div>
+      </div>
+    </div>
+
+    <div class="section-head"><h2>সাম্প্রতিক বিক্রয়</h2>
+    <button class="btn" onclick="showPage('sales')">সব বিক্রয় দেখুন</button></div>
+    <div class="panel table-wrap">
+      <table>
+        <thead><tr><th>তারিখ</th><th>পণ্যের নাম</th><th>পরিমাণ</th><th>মোট</th></tr></thead>
+        <tbody id="recentSales"></tbody>
+      </table>
+    </div>
+
+    <div class="section-head"><h2>কম স্টকের পণ্য</h2></div>
+    <div class="panel table-wrap">
+      <table><thead><tr><th>পণ্য</th><th>স্টক</th><th>বিক্রয় মূল্য</th></tr></thead>
+      <tbody id="lowStock"></tbody></table>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="page" id="products">
+    <div class="section-head">
+      <h2>📦 সকল পণ্য</h2>
+      <button class="btn" onclick="openForm('product')">＋ নতুন পণ্য যোগ</button>
+    </div>
+    <div class="panel">
+      <input class="search" id="productSearch" placeholder="পণ্যের নাম বা কোড খুঁজুন..." oninput="renderProducts()">
+    </div>
+    <div class="panel table-wrap">
+      <table>
+        <thead><tr><th>ছবি</th><th>পণ্যের নাম</th><th>কোড</th><th>ক্রয় মূল্য</th><th>বিক্রয় মূল্য</th><th>লাভ</th><th>স্টক</th><th>অ্যাকশন</th></tr></thead>
+        <tbody id="productList"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SALES -->
+  <section class="page" id="sales">
+    <div class="section-head"><h2>🛒 বিক্রয় ব্যবস্থাপনা</h2>
+    <button class="btn" onclick="openForm('sale')">＋ নতুন বিক্রয়</button></div>
+    <div class="panel table-wrap"><table>
+      <thead><tr><th>তারিখ</th><th>পণ্য</th><th>কাস্টমার</th><th>পরিমাণ</th><th>মোট</th><th>বাকি</th></tr></thead>
+      <tbody id="saleList"></tbody>
+    </table></div>
+  </section>
+
+  <!-- PURCHASES -->
+  <section class="page" id="purchases">
+    <div class="section-head"><h2>🚚 ক্রয় ব্যবস্থাপনা</h2>
+    <button class="btn" onclick="openForm('purchase')">＋ নতুন ক্রয়</button></div>
+    <div class="panel table-wrap"><table>
+      <thead><tr><th>তারিখ</th><th>পণ্য</th><th>সাপ্লায়ার</th><th>পরিমাণ</th><th>মোট ক্রয়</th></tr></thead>
+      <tbody id="purchaseList"></tbody>
+    </table></div>
+  </section>
+
+  <!-- CUSTOMERS -->
+  <section class="page" id="customers">
+    <div class="section-head"><h2>👥 কাস্টমার তালিকা</h2>
+    <button class="btn" onclick="openForm('customer')">＋ নতুন কাস্টমার</button></div>
+    <div class="panel table-wrap"><table>
+      <thead><tr><th>ছবি</th><th>নাম</th><th>মোবাইল</th><th>ঠিকানা</th><th>বাকি</th><th>অ্যাকশন</th></tr></thead>
+      <tbody id="customerList"></tbody>
+    </table></div>
+  </section>
+
+  <!-- SUPPLIERS -->
+  <section class="page" id="suppliers">
+    <div class="section-head"><h2>🏢 সাপ্লায়ার তালিকা</h2>
+    <button class="btn" onclick="openForm('supplier')">＋ নতুন সাপ্লায়ার</button></div>
+    <div class="panel table-wrap"><table>
+      <thead><tr><th>ছবি</th><th>নাম</th><th>মোবাইল</th><th>ঠিকানা</th><th>অ্যাকশন</th></tr></thead>
+      <tbody id="supplierList"></tbody>
+    </table></div>
+  </section>
+
+  <!-- BANKING -->
+  <section class="page" id="banking">
+    <div class="section-head"><h2>💳 মোবাইল ব্যাংকিং</h2>
+    <button class="btn" onclick="openForm('bank')">＋ লেনদেন যোগ</button></div>
+    <div class="panel table-wrap"><table>
+      <thead><tr><th>তারিখ</th><th>অ্যাকাউন্ট</th><th>ধরন</th><th>পরিমাণ</th><th>চার্জ</th></tr></thead>
+      <tbody id="bankList"></tbody>
+    </table></div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="page" id="services">
+    <div class="section-head"><h2>📲 অন্যান্য সার্ভিস</h2>
+    <button class="btn" onclick="openForm('service')">＋ সার্ভিস এন্ট্রি</button></div>
+    <div class="panel table-wrap"><table>
+      <thead><tr><th>তারিখ</th><th>সার্ভিস</th><th>কাস্টমার</th><th>চার্জ</th><th>খরচ</th><th>লাভ</th></tr></thead>
+      <tbody id="serviceList"></tbody>
+    </table></div>
+  </section>
+
+  <!-- EXPENSES -->
+  <section class="page" id="expenses">
+    <div class="section-head"><h2>💸 আয় ও ব্যয়</h2>
+    <button class="btn" onclick="openForm('expense')">＋ নতুন এন্ট্রি</button></div>
+    <div class="panel table-wrap"><table>
+      <thead><tr><th>তারিখ</th><th>ধরন</th><th>বিবরণ</th><th>পরিমাণ</th></tr></thead>
+      <tbody id="expenseList"></tbody>
+    </table></div>
+  </section>
+
+  <!-- REPORTS -->
+  <section class="page" id="reports">
+    <div class="section-head"><h2>📈 রিপোর্ট ও লাভ-লোকসান</h2></div>
+    <div class="grid">
+      <div class="card"><div class="stat-title">মোট বিক্রয়</div><div class="stat-value" id="rSales">৳ ০</div></div>
+      <div class="card"><div class="stat-title">পণ্যের লাভ</div><div class="stat-value green" id="rProfit">৳ ০</div></div>
+      <div class="card"><div class="stat-title">মোট ব্যয়</div><div class="stat-value red" id="rExpense">৳ ০</div></div>
+      <div class="card"><div class="stat-title">আনুমানিক নিট লাভ</div><div class="stat-value green" id="rNet">৳ ০</div></div>
+    </div>
+    <div class="panel">
+      <p class="info">নিট লাভ = বিক্রয় থেকে পণ্যের ক্রয়মূল্য বাদ দিয়ে, সার্ভিস লাভ যোগ করে এবং দোকানের খরচ বাদ দিয়ে হিসাব করা হবে।</p>
+      <br><button class="btn" onclick="window.print()">🖨️ রিপোর্ট প্রিন্ট</button>
+    </div>
+  </section>
+
+  <!-- EMPLOYEES -->
+  <section class="page" id="employees">
+    <div class="section-head"><h2>👨‍💼 কর্মচারী ব্যবস্থাপনা</h2>
+    <button class="btn" onclick="openForm('employee')">＋ কর্মচারী যোগ</button></div>
+    <div class="panel table-wrap"><table>
+      <thead><tr><th>ছবি</th><th>নাম</th><th>মোবাইল</th><th>বেতন</th><th>অ্যাকশন</th></tr></thead>
+      <tbody id="employeeList"></tbody>
+    </table></div>
+  </section>
+
+  <!-- BACKUP -->
+  <section class="page" id="backup">
+    <div class="section-head"><h2>💾 ডেটা ব্যাকআপ</h2></div>
+    <div class="panel">
+      <h3>ডেটা সংরক্ষণ</h3><br>
+      <p class="info">আপনার পণ্য, ছবি, কাস্টমার, বিক্রয়, ক্রয় এবং অন্যান্য তথ্য ফোনের IndexedDB-তে থাকবে। নিয়মিত ব্যাকআপ ডাউনলোড করুন।</p><br>
+      <button class="btn" onclick="backupData()">⬇️ সম্পূর্ণ ব্যাকআপ ডাউনলোড</button>
+      <br><br>
+      <label>ব্যাকআপ ফাইল পুনরুদ্ধার করুন
+        <input type="file" id="restoreFile" accept=".json,application/json">
+      </label>
+      <button class="btn secondary" onclick="restoreData()">⬆️ ব্যাকআপ রিস্টোর</button>
+    </div>
+    <div class="panel">
+      <h3>⚠️ সতর্কতা</h3><br>
+      <p class="info">ডেটা রিসেট করলে সব তথ্য মুছে যাবে। ব্যাকআপ ছাড়া এই কাজ করবেন না।</p><br>
+      <button class="btn danger" onclick="resetData()">সব ডেটা মুছে ফেলুন</button>
+    </div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section class="page" id="settings">
+    <div class="section-head"><h2>⚙️ অ্যাপ সেটিংস</h2></div>
+    <div class="panel">
+      <label>দোকানের নাম<input id="shopName" value="RAIYAN TELECOM"></label>
+      <label>মোবাইল নম্বর<input id="shopPhone" placeholder="দোকানের নম্বর"></label>
+      <label>ঠিকানা<textarea id="shopAddress" placeholder="দোকানের ঠিকানা"></textarea></label>
+      <label>দোকানের লোগো<input type="file" id="shopLogo" accept="image/*"></label>
+      <button class="btn" onclick="saveSettings()">সেটিংস সংরক্ষণ</button>
+    </div>
+    <div class="panel">
+      <h3>অ্যাপ সম্পর্কে</h3><br>
+      <p class="info">RAIYAN TELECOM<br>Shop Management System<br>Version 1.0<br>Offline Storage Enabled</p>
+    </div>
+  </section>
+
+</main>
 </div>
 
-<div class="cards">
-  <div class="card"><span>মোট বিক্রি</span><b id="totalSales">৳0</b></div>
-  <div class="card"><span>মোট খরচ</span><b id="totalExpense">৳0</b></div>
-  <div class="card"><span>মোট লাভ</span><b id="totalProfit">৳0</b></div>
-  <div class="card"><span>মোট বাকি</span><b id="totalDue">৳0</b></div>
-</div>
-
-<div class="section">
-  <h2>⚡ নতুন হিসাব যোগ করুন</h2>
-  <div class="form-box">
-    <select id="type">
-      <option value="বিক্রি">বিক্রি</option>
-      <option value="রিচার্জ">রিচার্জ</option>
-      <option value="খরচ">খরচ</option>
-      <option value="বাকি">বাকি</option>
-    </select>
-    <input type="text" id="productName" placeholder="পণ্যের / কাস্টমারের নাম">
-    <input type="file" id="productImage" accept="image/*">
-    <input type="number" id="costPrice" placeholder="ক্রয়মূল্য" oninput="calcProfit()">
-    <input type="number" id="salePrice" placeholder="বিক্রয়মূল্য" oninput="calcProfit()">
-    <input type="number" id="profit" placeholder="লাভ (স্বয়ংক্রিয়)" readonly>
-    <input type="number" id="quantity" placeholder="পরিমাণ" value="1">
-    <button onclick="saveRecord()">যোগ করুন</button>
+<!-- FORM MODAL -->
+<div id="modal" style="display:none;position:fixed;inset:0;background:#000b;z-index:30;overflow:auto;padding:20px">
+  <div class="panel" style="max-width:600px;margin:35px auto;background:#142236">
+    <div class="section-head"><h2 id="formTitle">নতুন তথ্য</h2>
+    <button class="small-btn" onclick="closeForm()">✕ বন্ধ</button></div>
+    <form id="dataForm">
+      <div id="formFields"></div>
+      <div class="form-actions">
+        <button class="btn" type="submit">💾 সংরক্ষণ করুন</button>
+        <button class="btn secondary" type="button" onclick="closeForm()">বাতিল</button>
+      </div>
+    </form>
   </div>
 </div>
 
-<div class="section">
-  <h2>📋 হিসাবের তালিকা</h2>
-  <div id="recordList"></div>
-</div>
-
 <script>
-let imageData = "";
+// ===============================
+// DATABASE - OFFLINE INDEXEDDB
+// ===============================
 
-document.getElementById('productImage').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(ev) {
-    const img = new Image();
-    img.onload = function() {
-      const canvas = document.createElement('canvas');
-      const scale = Math.min(300 / img.width, 300 / img.height, 1);
-      canvas.width = img.width * scale;
-      canvas.height = img.height * scale;
-      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-      imageData = canvas.toDataURL('image/jpeg', 0.7);
-    };
-    img.src = ev.target.result;
+const DB_NAME = "RaiyanTelecomDB";
+const STORE = "records";
+let db;
+let currentType = "";
+let editingId = null;
+
+const types = [
+"products","sales","purchases","customers","suppliers",
+"banking","services","expenses","employees"
+];
+
+function openDB(){
+ return new Promise((resolve,reject)=>{
+  const req=indexedDB.open(DB_NAME,1);
+  req.onupgradeneeded=()=>{
+   const database=req.result;
+   if(!database.objectStoreNames.contains(STORE)){
+    database.createObjectStore(STORE,{keyPath:"id"});
+   }
   };
-  reader.readAsDataURL(file);
+  req.onsuccess=()=>{db=req.result;resolve(db)};
+  req.onerror=()=>reject(req.error);
+ });
+}
+
+function getAll(){
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction(STORE,"readonly");
+  const req=tx.objectStore(STORE).getAll();
+  req.onsuccess=()=>resolve(req.result);
+  req.onerror=()=>reject(req.error);
+ });
+}
+
+function saveRecord(record){
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction(STORE,"readwrite");
+  tx.objectStore(STORE).put(record);
+  tx.oncomplete=()=>resolve(true);
+  tx.onerror=()=>reject(tx.error);
+ });
+}
+
+function deleteRecord(id){
+ return new Promise((resolve,reject)=>{
+  const tx=db.transaction(STORE,"readwrite");
+  tx.objectStore(STORE).delete(id);
+  tx.oncomplete=()=>resolve(true);
+  tx.onerror=()=>reject(tx.error);
+ });
+}
+
+async function all(type){
+ return (await getAll()).filter(x=>x.type===type);
+}
+
+const money=n=>"৳ "+Number(n||0).toLocaleString("en-IN");
+const num=id=>Number(document.getElementById(id)?.value||0);
+const val=id=>document.getElementById(id)?.value||"";
+
+function uid(){return Date.now()+"_"+Math.random().toString(36).slice(2,8)}
+function dateNow(){return new Date().toISOString().slice(0,10)}
+function bnDate(){return new Date().toLocaleDateString("bn-BD",{weekday:"long",year:"numeric",month:"long",day:"numeric"})}
+
+document.getElementById("today").textContent=bnDate();
+
+// ===============================
+// NAVIGATION
+// ===============================
+
+const titles={
+ dashboard:"ড্যাশবোর্ড",products:"পণ্য ব্যবস্থাপনা",
+ sales:"বিক্রয় ব্যবস্থাপনা",purchases:"ক্রয় ব্যবস্থাপনা",
+ customers:"কাস্টমার",suppliers:"সাপ্লায়ার",
+ banking:"মোবাইল ব্যাংকিং",services:"অন্যান্য সার্ভিস",
+ expenses:"আয় ও ব্যয়",reports:"রিপোর্ট ও লাভ",
+ employees:"কর্মচারী",backup:"ব্যাকআপ",settings:"সেটিংস"
+};
+
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.querySelectorAll(".nav").forEach(n=>n.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelector(`[data-page="${id}"]`).classList.add("active");
+ document.getElementById("pageTitle").textContent=titles[id];
+ renderAll();
+}
+
+document.querySelectorAll(".nav").forEach(btn=>{
+ btn.addEventListener("click",()=>showPage(btn.dataset.page));
 });
 
-function calcProfit() {
-  const cost = parseFloat(document.getElementById('costPrice').value) || 0;
-  const sale = parseFloat(document.getElementById('salePrice').value) || 0;
-  document.getElementById('profit').value = sale - cost;
-}
+// ===============================
+// FORM BUILDER
+// ===============================
 
-function saveRecord() {
-  const name = document.getElementById('productName').value.trim();
-  if (!name) { alert('নাম লিখুন'); return; }
-
-  const record = {
-    type: document.getElementById('type').value,
-    image: imageData,
-    name: name,
-    cost: parseFloat(document.getElementById('costPrice').value) || 0,
-    sale: parseFloat(document.getElementById('salePrice').value) || 0,
-    profit: parseFloat(document.getElementById('profit').value) || 0,
-    qty: parseInt(document.getElementById('quantity').value) || 1,
-    date: new Date().toLocaleDateString('bn-BD')
-  };
-
-  let records = JSON.parse(localStorage.getItem('records') || '[]');
-  records.push(record);
-  localStorage.setItem('records', JSON.stringify(records));
-
-  imageData = "";
-  document.querySelectorAll('.form-box input').forEach(i => i.value = i.id === 'quantity' ? 1 : '');
-  render();
-}
-
-function deleteRecord(index) {
-  let records = JSON.parse(localStorage.getItem('records') || '[]');
-  records.splice(index, 1);
-  localStorage.setItem('records', JSON.stringify(records));
-  render();
-}
-
-function render() {
-  const records = JSON.parse(localStorage.getItem('records') || '[]');
-  const container = document.getElementById('recordList');
-  container.innerHTML = "";
-
-  let sales = 0, cost = 0, profit = 0, due = 0;
-
-  records.forEach((r, i) => {
-    if (r.type === 'বিক্রি') { sales += r.sale * r.qty; cost += r.cost * r.qty; profit += r.profit * r.qty; }
-    if (r.type === 'খরচ') { cost += r.sale * r.qty; }
-    if (r.type === 'বাকি') { due += r.sale * r.qty; }
-    if (r.type === 'রিচার্জ') { sales += r.sale * r.qty; profit += r.profit * r.qty; }
-
-    container.innerHTML += `
-      <div class="record-card">
-        <img src="${r.image || ''}" alt="">
-        <div class="info">
-          <strong>${r.name}</strong> <small>(${r.type})</small><br>
-          ক্রয়: ৳${r.cost} | বিক্রয়: ৳${r.sale}<br>
-          লাভ: ৳${r.profit} | পরিমাণ: ${r.qty}<br>
-          <small>${r.date}</small>
-        </div>
-        <button class="del" onclick="deleteRecord(${i})">🗑</button>
-      </div>`;
-  });
-
-  document.getElementById('totalSales').innerText = '৳' + sales;
-  document.getElementById('totalExpense').innerText = '৳' + cost;
-  document.getElementById('totalProfit').innerText = '৳' + profit;
-  document.getElementById('totalDue').innerText = '৳' + due;
-}
-
-render();
-</script>
-</body>
-</html>
+const fields={
+ product:[
+  ["name","পণ্যের নাম","text",1],
+  ["code","পণ্য কোড","text"],
+  ["category","ক্যাটাগরি","text"],
+  ["brand","ব্র্যান্ড","text"],
+  ["model","মডেল","text"],
+  ["buy","ক্রয় মূল্য","number",1],
+  ["price","বিক্রয় মূল্য","number",1],
+  ["stock","স্টক পরিমাণ","number",1],
+  ["low","সর্বনিম্ন স্টক","number"],
+  ["supplier","সাপ্লায়ারের নাম","text"],
+  ["description","বিবরণ","textarea"],
+  ["image","পণ্যের ছবি","file"]
+ ],
+ customer:[
+  ["name","কাস্টমারের নাম","text",1],
+  ["phone","মোবাইল নম্বর","tel"],
+  ["address","ঠিকানা","textarea"],
+  ["image","কাস্টমারের ছবি","file"]
+ ],
+ supplier:[
+  ["name","সাপ্লায়ারের নাম","text",1],
+  ["phone","মোবাইল নম্বর","tel"],
+  ["address","ঠিকানা","textarea"],
+  ["image","সাপ্লায়ারের ছবি","file"]
+ ],
+ employee:[
+  ["name","কর্মচারীর নাম","text",1],
+  ["phone","মোবাইল নম্বর","tel"],
+  ["salary","মাসিক বেতন","number"],
+  ["image","ছবি","file"]
+ ],
+ sale:[
+  ["productId","পণ্য নির্বাচন","productSelect",1],
+  ["customer","কাস্টমারের নাম","text"],
+  ["qty","পরিমাণ","number",1],
+  ["price","প্রতি পণ্যের বিক্রয় মূল্য","number",1],
+  ["paid","জমা টাকা","number"],
+  ["discount","ডিসকাউন্ট","number"]
+ ],
+ purchase:[
+  ["productId","পণ্য নির্বাচন","productSelect",1],
+  ["supplier","সাপ্লায়ারের নাম","text"],
+  ["qty","পরিমাণ","number",1],
+  ["buy","প্রতি পণ্যের ক্রয় মূল্য","number",1]
+ ],
+ bank:[
+  ["account","অ্যাকাউন্ট","select:বিকাশ,নগদ,রকেট,উপায়,ক্যাশ",1],
+  ["kind","লেনদেনের ধরন","select:জমা,উত্তোলন,ক্যাশ ইন,ক্যাশ আউট",1],
+  ["amount","পরিমাণ","number",1],
+  ["charge","চার্জ","number"]
+ ],
+ service:[
+  ["name","সার্ভিসের নাম","text",1],
+  ["customer","কাস্টমারের নাম","text"],
+  ["amount","গ্রাহকের কাছ থেকে নেওয়া টাকা","number",1],
+  ["cost","সার্ভিসের খরচ","number"]
+ ],
+ expense:[
+  ["kind","ধরন","select:ব্যয়,অন্যান্য আয়",1]
