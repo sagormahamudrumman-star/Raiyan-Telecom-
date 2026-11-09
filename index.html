@@ -30,15 +30,36 @@ td,th{padding:10px;border-bottom:1px solid var(--line);text-align:left}th{color:
 .empty{text-align:center;padding:20px;color:var(--muted)}.notice{background:#183c2d;padding:10px;border-radius:9px;color:#b7f5d2;font-size:13px;margin:10px 0}
 .pill{display:inline-block;padding:3px 8px;border-radius:20px;background:#173d2d;color:#a5f0c4;font-size:11px}
 .logoPreview{width:90px;height:90px;object-fit:cover;border-radius:14px;background:#17392c}
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
+.loginCard{width:100%;max-width:420px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.loginCard h2{color:#8ff0bb}.loginCard button{width:100%;margin-top:10px}
+#loginError{color:#ff9ca4;font-size:13px;min-height:20px}
+#appShell{display:none}.viewerTag{display:none;color:#b7f5d2;font-size:12px}
+body.viewer-mode [onclick*="openForm"],body.viewer-mode [onclick*="clearSection"],body.viewer-mode [onclick*="clearEverything"],body.viewer-mode [onclick*="saveSettings"],body.viewer-mode [onclick*="restoreData"],body.viewer-mode [onclick*="editItem"],body.viewer-mode [onclick*="delItem"]{display:none!important}
+body.viewer-mode #nav button[data-page="settings"]{display:none}
+body.viewer-mode #modal{display:none!important}
 @media(min-width:750px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:550px){.formgrid{grid-template-columns:1fr}.full{grid-column:auto}header{top:0}nav{top:67px}}
 @media print{header,nav,.toolbar,button{display:none!important}body{background:white;color:black}.panel,.stat,table{background:white;color:black;border:1px solid #aaa}.stat b{color:black}}
 </style>
 </head>
 <body>
+<section id="loginScreen">
+ <div class="loginCard">
+  <h2>RAIYAN TELECOM</h2>
+  <p>দোকান ম্যানেজমেন্ট সিস্টেমে প্রবেশ করুন</p>
+  <label>ইমেইল</label><input id="loginEmail" type="email" autocomplete="username" placeholder="আপনার ইমেইল">
+  <label>পাসওয়ার্ড</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="পাসওয়ার্ড">
+  <button id="loginButton" onclick="loginNow()">লগইন</button>
+  <div id="loginError"></div>
+  <small style="color:var(--muted)">শুধু Admin ও অনুমোদিত Viewer অ্যাকাউন্ট প্রবেশ করতে পারবে।</small>
+ </div>
+</section>
+<div id="appShell">
 <header>
 <img id="headerLogo" class="brandLogo" alt="দোকানের লোগো">
-<div><div class="brand" id="headerName">RAIYAN TELECOM</div><small id="headerSubtitle">দোকান ম্যানেজমেন্ট সিস্টেম • অফলাইন</small></div>
+<div><div class="brand" id="headerName">RAIYAN TELECOM</div><small id="headerSubtitle">দোকান ম্যানেজমেন্ট সিস্টেম • অনলাইন</small></div>
+<div style="margin-left:auto;text-align:right"><span id="roleLabel" class="viewerTag"></span><button class="secondary" onclick="logoutNow()">লগআউট</button></div>
 </header>
 <nav id="nav">
 <button class="active" data-page="dashboard">🏠 ড্যাশবোর্ড</button>
@@ -58,8 +79,7 @@ td,th{padding:10px;border-bottom:1px solid var(--line);text-align:left}th{color:
 </nav>
 <main>
 <section id="dashboard" class="page active">
-<h2>ড্যাশবোর্ড</h2>
-<div class="grid" id="stats"></div>
+<h2>ড্যাশবোর্ড</h2><div class="grid" id="stats"></div>
 <div class="panel"><h3>📱 মোবাইল সার্ভিসের ব্যালেন্স</h3><div id="serviceStats" class="grid"></div></div>
 <div class="panel"><h3>📈 সাম্প্রতিক ১০টি বিক্রি</h3><div id="recent"></div></div>
 <div class="panel"><h3>⚠️ কম স্টক সতর্কতা</h3><div id="lowStock"></div></div>
@@ -84,12 +104,16 @@ td,th{padding:10px;border-bottom:1px solid var(--line);text-align:left}th{color:
 <label>অ্যাপ / দোকানের ছবি (লোগো)</label><input id="shopLogo" type="file" accept="image/*"><img id="logoPreview" class="logoPreview" alt="লোগো প্রিভিউ" style="display:none">
 <div class="toolbar"><button onclick="saveSettings()">সেটিংস সংরক্ষণ</button><button class="secondary" onclick="backupData()">ব্যাকআপ ডাউনলোড</button><button class="danger" onclick="clearEverything()">সব ডেটা ডিলিট</button></div>
 <label>ব্যাকআপ ফিরিয়ে আনুন</label><input type="file" accept="application/json" onchange="restoreData(event)">
-<div class="notice">ডেটা এই ব্রাউজারের Local Storage-এ থাকবে। নিয়মিত JSON ব্যাকআপ ডাউনলোড করে রাখুন।</div>
+<div class="notice">ডেটা Firebase অনলাইনে সংরক্ষিত হবে এবং একই অ্যাকাউন্টে লগইন করা ডিভাইসগুলোতে সিঙ্ক হবে।</div>
 </div></section>
 </main>
 <div id="modal"><div class="dialog"><h3 id="modalTitle">তথ্য যোগ</h3><form id="dataForm"><div id="formFields" class="formgrid"></div><div class="toolbar"><button type="button" class="secondary" onclick="closeModal()">বাতিল</button><button type="submit">সংরক্ষণ</button></div></form></div></div>
+</div>
 <script>
 const DBKEY='raiyan_telecom_v5';
+const ADMIN_UID='TA1vO06BDRZuQYTerdMj7VnviZp1';
+const VIEWER_UID='TwgtKhwJXUQzxORi0vgltNnUYod2';
+let currentRole='viewer', cloudReady=false, cloudApplying=false;
 const categories=['মোবাইল ফোন','বাটন ফোন','চার্জার','ডাটা ক্যাবল','USB ক্যাবল','হেডফোন','ইয়ারফোন','ব্লুটুথ হেডফোন','স্পিকার','পাওয়ার ব্যাংক','মেমোরি কার্ড','পেনড্রাইভ','মাউস','কিবোর্ড','কম্পিউটার যন্ত্রাংশ','ল্যাপটপ এক্সেসরিজ','মোবাইল কভার','মোবাইল গ্লাস','ডিসপ্লে','ব্যাটারি','সিম কার্ড','রাউটার','Wi-Fi ডিভাইস','LED লাইট','টর্চ লাইট','রিমোট','ঘড়ি','ক্যালকুলেটর','CCTV ক্যামেরা','ইলেকট্রিক সুইচ','মাল্টিপ্লাগ','অন্যান্য ইলেকট্রনিক্স'];
 const companies=['GP','Robi','Banglalink','Airtel','Teletalk'];
 const banks=['বিকাশ','নগদ','রকেট','উপায়'];
@@ -109,124 +133,24 @@ cardOps:{title:'মোবাইল কার্ড',fields:[['service','কো�
 function empty(){return {products:[],customers:[],suppliers:[],employees:[],transactions:[],expenses:[],sales:[],purchases:[],mobileOps:[],rechargeOps:[],cardOps:[],settings:{name:'RAIYAN TELECOM',websiteName:'RAIYAN TELECOM',phone:'',address:'',logo:''}}}
 function load(){try{let x=JSON.parse(localStorage.getItem(DBKEY));return x?{...empty(),...x,settings:{...empty().settings,...(x.settings||{})}}:empty()}catch(e){return empty()}}
 let data=load(),editing=null,currentType=null;
-function save(){localStorage.setItem(DBKEY,JSON.stringify(data));renderAll()}
+function save(){localStorage.setItem(DBKEY,JSON.stringify(data));renderAll();if(cloudReady&&!cloudApplying&&currentRole==='admin'&&window.cloudSave)window.cloudSave(data)}
 function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 function money(n){return '৳ '+(Number(n)||0).toLocaleString('en-IN',{maximumFractionDigits:2})}
 function dateNow(){return new Date().toISOString().slice(0,10)}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(b.dataset.page).classList.add('active');renderAll()});
-function openForm(type,record=null){
-currentType=type;editing=record?record.id:null;let cfg=types[type],html='';
-document.getElementById('modalTitle').textContent=(record?'এডিট ':'নতুন ')+cfg.title;
-cfg.fields.forEach(([key,label,kind,required,opts])=>{
-let val=record?.[key]??(key==='date'?dateNow():['paid','discount','cost','commission','salePrice'].includes(key)?0:'');
-html+=`<div class="${kind==='textarea'?'full':''}"><label>${label}${required?' *':''}</label>`;
+function openForm(type,record=null){if(currentRole!=='admin')return;currentType=type;editing=record?record.id:null;let cfg=types[type],html='';document.getElementById('modalTitle').textContent=(record?'এডিট ':'নতুন ')+cfg.title;
+cfg.fields.forEach(([key,label,kind,required,opts])=>{let val=record?.[key]??(key==='date'?dateNow():['paid','discount','cost','commission','salePrice'].includes(key)?0:'');html+=`<div class="${kind==='textarea'?'full':''}"><label>${label}${required?' *':''}</label>`;
 if(kind==='select')html+=`<select name="${key}" ${required?'required':''}>${opts.map(o=>`<option value="${esc(o)}" ${val===o?'selected':''}>${esc(o)}</option>`).join('')}</select>`;
 else if(kind==='category'){let custom=val&&!categories.includes(val);html+=`<select name="category" id="categorySelect" required onchange="toggleCustomCategory()"><option value="">ক্যাটাগরি বাছাই করুন</option>${categories.map(c=>`<option value="${esc(c)}" ${val===c?'selected':''}>${esc(c)}</option>`).join('')}<option value="__custom__" ${custom?'selected':''}>＋ নতুন ক্যাটাগরি লিখুন</option></select><input id="customCategory" placeholder="নতুন ক্যাটাগরির নাম" value="${custom?esc(val):''}" style="display:${custom?'block':'none'}" ${custom?'required':''}>`}
 else if(kind==='product')html+=`<select name="${key}" required><option value="">পণ্য বাছাই করুন</option>${data.products.map(p=>`<option value="${p.id}" ${val===p.id?'selected':''}>${esc(p.name)} — স্টক ${p.stock}</option>`).join('')}</select>`;
 else if(kind==='textarea')html+=`<textarea name="${key}" rows="2">${esc(val)}</textarea>`;
 else if(kind==='file')html+=`<input name="${key}" type="file" accept="image/*">`;
-else html+=`<input name="${key}" type="${kind}" value="${esc(val)}" ${required?'required':''} ${kind==='number'?'min="0" step="any"':''}>`;
-html+='</div>';
-});
-document.getElementById('formFields').innerHTML=html;document.getElementById('modal').classList.add('show');
-}
+else html+=`<input name="${key}" type="${kind}" value="${esc(val)}" ${required?'required':''} ${kind==='number'?'min="0" step="any"':''}>`;html+='</div>'});
+document.getElementById('formFields').innerHTML=html;document.getElementById('modal').classList.add('show')}
 function toggleCustomCategory(){let s=document.getElementById('categorySelect'),i=document.getElementById('customCategory');if(!s||!i)return;let show=s.value==='__custom__';i.style.display=show?'block':'none';i.required=show}
 function closeModal(){document.getElementById('modal').classList.remove('show')}
-function fileData(file){return new Promise((res,rej)=>{let r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)})}
+function fileData(file){return new Promise((res,rej)=>{let r=new FileReader();r.onload=()=>{let img=new Image();img.onload=()=>{let max=900,scale=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*scale);c.height=Math.round(img.height*scale);c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.72))};img.onerror=()=>res(r.result);img.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
 function stockEffect(type,record,sign){if(type!=='sales'&&type!=='purchases')return;let p=data.products.find(x=>x.id===record.productId);if(!p)return;let q=Number(record.qty||0);p.stock=Number(p.stock||0)+(type==='sales'?q*sign:-q*sign)}
-document.getElementById('dataForm').onsubmit=async e=>{
-e.preventDefault();let fd=new FormData(e.target),obj={};
-for(let [k,v] of fd.entries()){if(k==='photo'){if(v.size)obj.photo=await fileData(v)}else obj[k]=v}
-if(currentType==='products'&&obj.category==='__custom__')obj.category=document.getElementById('customCategory').value.trim();
-types[currentType].fields.forEach(([k,,kind])=>{if(kind==='number')obj[k]=Number(obj[k]||0)});
-let arr=data[currentType],old=editing?arr.find(x=>x.id===editing):null;
-if(currentType==='sales'||currentType==='purchases'){
-if(old)stockEffect(currentType,old,1);
-let p=data.products.find(x=>x.id===obj.productId);if(!p){alert('আগে পণ্য যোগ করুন');return}
-let qty=Number(obj.qty||0);
-if(currentType==='sales'&&qty>Number(p.stock||0)){if(old)stockEffect(currentType,old,-1);alert('স্টকে পর্যাপ্ত পণ্য নেই');return}
-if(currentType==='sales'){obj.total=Math.max(0,qty*obj.unitPrice-Number(obj.discount||0));obj.due=Math.max(0,obj.total-Number(obj.paid||0));obj.cost=qty*Number(p.buy||0);p.stock-=qty}
-else{obj.total=qty*obj.unitCost;obj.due=Math.max(0,obj.total-Number(obj.paid||0));p.stock=Number(p.stock||0)+qty;p.buy=obj.unitCost}
-}
-if(currentType==='mobileOps'||currentType==='rechargeOps'||currentType==='cardOps'){
-if(currentType==='cardOps')obj.total=Number(obj.denomination||0)*Number(obj.qty||0);
-if(currentType==='mobileOps'&&obj.kind==='ব্যালেন্স যোগ'&&obj.cost===0)obj.cost=obj.amount;
-}
-if(old){let ix=arr.findIndex(x=>x.id===editing);arr[ix]={...old,...obj}}
-else arr.push({id:id(),created:Date.now(),...obj});
-closeModal();save();
-};
-function table(type,headers,rows){let el=document.getElementById(type+'Table');if(!el)return;if(!rows.length){el.innerHTML='<div class="empty">এখনো কোনো তথ্য যোগ করা হয়নি</div>';return}el.innerHTML=`<div class="tablewrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}<th>অ্যাকশন</th></tr></thead><tbody>${rows.map(r=>`<tr>${r.cells.map(c=>`<td>${c??''}</td>`).join('')}<td><div class="actions">${r.actions}</div></td></tr>`).join('')}</tbody></table></div>`}
-function btnEdit(t,x){return `<button class="secondary" onclick="editItem('${t}','${x.id}')">এডিট</button><button class="danger" onclick="delItem('${t}','${x.id}')">ডিলিট</button>`}
-function editItem(t,i){let x=data[t].find(a=>a.id===i);if(x)openForm(t,x)}
-function delItem(t,i){if(!confirm('এই তথ্যটি মুছে ফেলবেন?'))return;let x=data[t].find(a=>a.id===i);if(!x)return;
-if(t==='products'&&(data.sales.some(a=>a.productId===i)||data.purchases.some(a=>a.productId===i))){alert('এই পণ্যের বিক্রি/ক্রয়ের রেকর্ড আছে, তাই ডিলিট করা যাবে না');return}
-if(t==='sales'||t==='purchases')stockEffect(t,x,1);
-data[t]=data[t].filter(a=>a.id!==i);save()}
-
-function clearSection(type){
- const labels={products:'সব পণ্য',sales:'সব বিক্রির রেকর্ড',purchases:'সব ক্রয়ের রেকর্ড',customers:'সব কাস্টমার',suppliers:'সব সাপ্লায়ার',transactions:'সব লেনদেন',expenses:'সব খরচ',employees:'সব কর্মচারী',mobileOps:'সব মোবাইল ব্যাংকিং রেকর্ড',rechargeOps:'সব রিচার্জ রেকর্ড',cardOps:'সব মোবাইল কার্ড রেকর্ড'};
- if(!data[type] || !Array.isArray(data[type])) return;
- if(!data[type].length){alert('মুছে ফেলার মতো কোনো তথ্য নেই');return}
- if(type==='products' && (data.sales.length || data.purchases.length)){
-   alert('পণ্য মুছতে হলে আগে বিক্রি ও ক্রয়ের রেকর্ড মুছুন। এতে পুরোনো হিসাবের সঙ্গে পণ্যের সংযোগ নষ্ট হবে না।');
-   return;
- }
- if(!confirm(labels[type]+' স্থায়ীভাবে মুছে ফেলবেন? এই কাজ ফিরিয়ে আনা যাবে না। আগে ব্যাকআপ রাখুন।')) return;
- if(type==='sales' || type==='purchases'){
-   data[type].forEach(x=>stockEffect(type,x,1));
- }
- data[type]=[];
- save();
-}
-function clearEverything(){
- if(!confirm('সতর্কতা: পণ্য, বিক্রি, ক্রয়, কাস্টমার, সাপ্লায়ার, লেনদেন, খরচ, কর্মচারী, মোবাইল ব্যাংকিং, রিচার্জ ও কার্ডসহ সব ব্যবসার ডেটা মুছে যাবে। দোকানের সেটিংস থাকবে। আপনি কি নিশ্চিত?')) return;
- if(!confirm('শেষবার নিশ্চিত করুন: সব ব্যবসার ডেটা স্থায়ীভাবে ডিলিট করবেন? আগে ব্যাকআপ নিয়েছেন?')) return;
- const settings={...data.settings};
- data=empty();
- data.settings=settings;
- save();
- alert('সব ব্যবসার ডেটা মুছে ফেলা হয়েছে। দোকানের সেটিংস রাখা হয়েছে।');
-}
-
-function renderProducts(){let q=(document.getElementById('productSearch')?.value||'').toLowerCase();let a=data.products.filter(p=>(p.name+' '+p.code+' '+p.category).toLowerCase().includes(q));table('products',['ছবি','নাম','ক্যাটাগরি','কোড','ক্রয়','বিক্রয়','লাভ','স্টক'],a.map(p=>({cells:[p.photo?`<img width="38" src="${p.photo}">`:'—',esc(p.name),esc(p.category),esc(p.code),money(p.buy),money(p.price),money(p.price-p.buy),p.stock],actions:btnEdit('products',p)})))}
-function renderSimple(t){let q=(document.getElementById(t.slice(0,-1)+'Search')?.value||'').toLowerCase();let a=data[t].filter(x=>(x.name+' '+x.phone).toLowerCase().includes(q));table(t,['নাম','মোবাইল','ঠিকানা'],a.map(x=>({cells:[esc(x.name),esc(x.phone),esc(x.address||x.note)],actions:btnEdit(t,x)})))}
-function renderList(t,heads,mapper){table(t,heads,data[t].slice().reverse().map(x=>({cells:mapper(x),actions:btnEdit(t,x)})))}
-function aggregateLedger(records,serviceField,kindBuy,kindSell,amountField){
-let out={};records.forEach(x=>{let k=x[serviceField];if(!out[k])out[k]={bought:0,sold:0,balance:0,profit:0};let a=Number(x[amountField]||0);if(x.kind===kindBuy){out[k].bought+=a;out[k].balance+=a}else if(x.kind===kindSell){out[k].sold+=a;out[k].balance-=a;out[k].profit+=Number(x.commission||0)+Math.max(0,Number(x.salePrice||0)-a)}});return out}
-function mobileServiceCards(elId,records,services,buyKind,sellKind,amountKey){let map=aggregateLedger(records,'service',buyKind,sellKind,amountKey);document.getElementById(elId).innerHTML=services.map(s=>{let x=map[s]||{bought:0,sold:0,balance:0,profit:0};return `<div class="stat"><span>${esc(s)}</span><b>${money(x.balance)}</b><small>কেনা ${money(x.bought)} • বিক্রি ${money(x.sold)} • লাভ ${money(x.profit)}</small></div>`}).join('')}
-function renderAll(){
-renderProducts();renderSimple('customers');renderSimple('suppliers');
-renderList('sales',['তারিখ','পণ্য','পরিমাণ','মোট','জমা','বাকি','কাস্টমার'],s=>[s.date,esc(data.products.find(p=>p.id===s.productId)?.name||''),s.qty,money(s.total),money(s.paid),money(s.due),esc(s.customer)]);
-renderList('purchases',['তারিখ','পণ্য','পরিমাণ','মোট','পরিশোধ','বাকি','সাপ্লায়ার'],s=>[s.date,esc(data.products.find(p=>p.id===s.productId)?.name||''),s.qty,money(s.total),money(s.paid),money(s.due),esc(s.supplier)]);
-renderList('transactions',['তারিখ','ধরন','মাধ্যম','টাকা','বিবরণ'],x=>[x.date,x.kind,x.method,money(x.amount),esc(x.details)]);
-renderList('expenses',['তারিখ','খাত','টাকা','বিবরণ'],x=>[x.date,esc(x.category),money(x.amount),esc(x.details)]);
-renderList('employees',['নাম','মোবাইল','বেতন'],x=>[esc(x.name),esc(x.phone),money(x.salary)]);
-renderList('mobileOps',['তারিখ','সার্ভিস','ধরন','পরিমাণ','খরচ','কমিশন','বিবরণ'],x=>[x.date,x.service,x.kind,money(x.amount),money(x.cost),money(x.commission),esc(x.details)]);
-renderList('rechargeOps',['তারিখ','কোম্পানি','ধরন','পরিমাণ','খরচ','আদায়','মোবাইল'],x=>[x.date,x.service,x.kind,money(x.amount),money(x.cost),money(x.salePrice),esc(x.phone)]);
-renderList('cardOps',['তারিখ','কোম্পানি','ধরন','কার্ড মূল্য','সংখ্যা','মোট','বিবরণ'],x=>[x.date,x.service,x.kind,money(x.denomination),x.qty,money(x.total),esc(x.details)]);
-let sum=(a,k)=>a.reduce((s,x)=>s+Number(x[k]||0),0);
-let sales=sum(data.sales,'total'),purchases=sum(data.purchases,'total'),paid=sum(data.sales,'paid'),purchasePaid=sum(data.purchases,'paid'),due=sum(data.sales,'due'),supplierDue=sum(data.purchases,'due'),profit=data.sales.reduce((s,x)=>s+Number(x.total||0)-Number(x.cost||0),0),expenses=sum(data.expenses,'amount'),stock=data.products.reduce((s,x)=>s+Number(x.stock||0),0),stockValue=data.products.reduce((s,x)=>s+Number(x.stock||0)*Number(x.buy||0),0),today=dateNow();
-let stats=[['💰 মোট বিক্রি',money(sales)],['🛒 মোট পণ্য ক্রয়',money(purchases)],['📥 বিক্রির আদায়',money(paid)],['📤 ক্রয়ের পরিশোধ',money(purchasePaid)],['👥 কাস্টমার বাকি',money(due)],['🚚 সাপ্লায়ার বাকি',money(supplierDue)],['📈 পণ্যের মোট লাভ',money(profit)],['💸 দোকানের খরচ',money(expenses)],['🏆 খরচ বাদে নিট লাভ',money(profit-expenses)],['📦 মোট পণ্য',data.products.length+' টি'],['🔢 মোট স্টক',stock+' পিস'],['🏷️ স্টকের ক্রয়মূল্য',money(stockValue)],['☀️ আজকের বিক্রি',money(sum(data.sales.filter(x=>x.date===today),'total'))],['🧾 আজকের ক্রয়',money(sum(data.purchases.filter(x=>x.date===today),'total'))]];
-document.getElementById('stats').innerHTML=stats.map(x=>`<div class="stat"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('');
-mobileServiceCards('bankSummary',data.mobileOps,banks,'ব্যালেন্স যোগ','বিক্রি / ক্যাশ আউট','amount');
-mobileServiceCards('rechargeSummary',data.rechargeOps,companies,'ব্যালেন্স কেনা','রিচার্জ বিক্রি','amount');
-let cardMap={};data.cardOps.forEach(x=>{let k=x.service;if(!cardMap[k])cardMap[k]={bought:0,sold:0,balance:0};let n=Number(x.denomination||0)*Number(x.qty||0);if(x.kind==='কার্ড কেনা'){cardMap[k].bought+=n;cardMap[k].balance+=Number(x.qty||0)}else{cardMap[k].sold+=n;cardMap[k].balance-=Number(x.qty||0)}});
-document.getElementById('cardSummary').innerHTML=companies.map(s=>{let x=cardMap[s]||{bought:0,sold:0,balance:0};return `<div class="stat"><span>${s} কার্ড</span><b>${x.balance} টি</b><small>কেনা ${money(x.bought)} • বিক্রি ${money(x.sold)}</small></div>`}).join('');
-let allServices=[...banks,...companies];document.getElementById('serviceStats').innerHTML=allServices.map(s=>{let rec=banks.includes(s)?data.mobileOps:data.rechargeOps;let kind=banks.includes(s)?'ব্যালেন্স যোগ':'ব্যালেন্স কেনা';let sell=banks.includes(s)?'বিক্রি / ক্যাশ আউট':'রিচার্জ বিক্রি';let m=aggregateLedger(rec,'service',kind,sell,'amount')[s]||{balance:0};return `<div class="stat"><span>${s}</span><b>${money(m.balance)}</b></div>`}).join('');
-document.getElementById('recent').innerHTML=data.sales.slice().reverse().slice(0,10).map(s=>`<div style="padding:9px;border-bottom:1px solid #285344"><b>${esc(data.products.find(p=>p.id===s.productId)?.name||'পণ্য')}</b><br><small>${esc(s.date||'')} | পরিমাণ: ${s.qty}</small><br><span style="color:#8ff0bb">বিক্রি: ${money(s.total)}</span> <span style="color:#ffd27a">| বাকি: ${money(s.due)}</span></div>`).join('')||'এখনো কোনো বিক্রি নেই';
-let low=data.products.filter(p=>Number(p.stock||0)<=Number(p.min||0));document.getElementById('lowStock').innerHTML=low.map(p=>`<div style="padding:8px">${esc(p.name)} — <span style="color:#ffb477">${p.stock} পিস</span></div>`).join('')||'সব পণ্যের স্টক ঠিক আছে';
-renderReports();
-document.getElementById('shopName').value=data.settings.name||'RAIYAN TELECOM';document.getElementById('websiteName').value=data.settings.websiteName||'';document.getElementById('shopPhone').value=data.settings.phone||'';document.getElementById('shopAddress').value=data.settings.address||'';
-let logo=document.getElementById('logoPreview');if(data.settings.logo){logo.src=data.settings.logo;logo.style.display='block'}else logo.style.display='none';
-document.getElementById('headerName').textContent=data.settings.name||'RAIYAN TELECOM';document.getElementById('headerSubtitle').textContent=(data.settings.websiteName||'')+' • দোকান ম্যানেজমেন্ট সিস্টেম';let h=document.getElementById('headerLogo');if(data.settings.logo){h.src=data.settings.logo;h.style.display='block'}else h.style.display='none';
-}
-function renderReports(){let from=document.getElementById('reportFrom')?.value||'',to=document.getElementById('reportTo')?.value||'';let within=x=>(!from||x.date>=from)&&(!to||x.date<=to);let ss=data.sales.filter(within),pp=data.purchases.filter(within),ee=data.expenses.filter(within);let sum=(a,k)=>a.reduce((s,x)=>s+Number(x[k]||0),0);let sales=sum(ss,'total'),purchase=sum(pp,'total'),profit=ss.reduce((s,x)=>s+Number(x.total||0)-Number(x.cost||0),0),expense=sum(ee,'amount');document.getElementById('reportBox').innerHTML=`<div class="panel">মোট বিক্রি: ${money(sales)}<br>মোট ক্রয়: ${money(purchase)}<br>বিক্রির আদায়: ${money(sum(ss,'paid'))}<br>ক্রয়ের পরিশোধ: ${money(sum(pp,'paid'))}<br>কাস্টমার বাকি: ${money(sum(ss,'due'))}<br>সাপ্লায়ার বাকি: ${money(sum(pp,'due'))}<br>পণ্যের লাভ: ${money(profit)}<br>দোকানের খরচ: ${money(expense)}<br><b style="color:#8ff0bb">নিট লাভ: ${money(profit-expense)}</b></div>`}
-async function saveSettings(){let file=document.getElementById('shopLogo').files[0];if(file)data.settings.logo=await fileData(file);data.settings={...data.settings,name:document.getElementById('shopName').value.trim()||'RAIYAN TELECOM',websiteName:document.getElementById('websiteName').value.trim(),phone:document.getElementById('shopPhone').value,address:document.getElementById('shopAddress').value};save();alert('সেটিংস সংরক্ষণ হয়েছে')}
-function backupData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='raiyan-telecom-backup.json';a.click();URL.revokeObjectURL(a.href)}
-function restoreData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.products||!x.sales)throw Error();if(!confirm('বর্তমান তথ্যের বদলে ব্যাকআপ বসবে?'))return;data={...empty(),...x,settings:{...empty().settings,...(x.settings||{})}};save();alert('ব্যাকআপ ফিরিয়ে আনা হয়েছে')}catch(err){alert('ব্যাকআপ ফাইল সঠিক নয়')}};r.readAsText(f)}
-renderAll();
-</script>
-</body>
-</html>
+document.getElementById('dataForm').onsubmit=async e=>{e.preventDefault();if(currentRole!=='admin')return;let fd=new FormData(e.target),obj={};for(let [k,v] of fd.entries()){if(k==='photo'){if(v.size)obj.photo=await fileData(v)}else obj[k]=v}
+if(currentType==='products'&&obj.category==='__custom__')obj.category=docu
