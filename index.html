@@ -1,167 +1,3 @@
-================================================================================
-Raiyan_Telecom_AndroidStudio Project Structure & Code
-================================================================================
-
---------------------------------------------------------------------------------
-1. build.gradle (Root Level)
---------------------------------------------------------------------------------
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.kotlin.android) apply false
-}
-
-
---------------------------------------------------------------------------------
-2. settings.gradle
---------------------------------------------------------------------------------
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-rootProject.name = "Raiyan Telecom"
-include ':app'
-
-
---------------------------------------------------------------------------------
-3. gradle.properties
---------------------------------------------------------------------------------
-# Project-wide Gradle settings.
-android.useAndroidX=true
-android.enableJetifier=true
-kotlin.code.style=official
-
-
---------------------------------------------------------------------------------
-4. app/build.gradle
---------------------------------------------------------------------------------
-plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-}
-
-android {
-    namespace 'com.raiyantelecom.app'
-    compileSdk 34
-
-    defaultConfig {
-        applicationId "com.raiyantelecom.app"
-        minSdk 23
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-}
-
-dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-}
-
-
---------------------------------------------------------------------------------
-5. app/proguard-rules.pro
---------------------------------------------------------------------------------
-# Add project specific ProGuard rules here.
-
-
---------------------------------------------------------------------------------
-6. app/src/main/AndroidManifest.xml
---------------------------------------------------------------------------------
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.RaiyanTelecom"
-        tools:targetApi="31">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
-
-</manifest>
-
-
---------------------------------------------------------------------------------
-7. app/src/main/java/com/raiyantelecom/app/MainActivity.kt
---------------------------------------------------------------------------------
-package com.raiyantelecom.app
-
-import android.os.Bundle
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import androidx.appcompat.app.AppCompatActivity
-
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        
-        val webView = WebView(this)
-        setContentView(webView)
-
-        webView.settings.javaScriptEnabled = true
-        webView.settings.domStorageEnabled = true
-        webView.webViewClient = WebViewClient()
-
-        // Load local HTML asset
-        webView.loadUrl("file:///android_asset/index.html")
-    }
-}
-
-
---------------------------------------------------------------------------------
-8. app/src/main/assets/index.html
---------------------------------------------------------------------------------
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -169,60 +5,78 @@ class MainActivity : AppCompatActivity() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raiyan Telecom</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             padding: 20px;
-            background-color: #f4f4f9;
+        }
+        .card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             text-align: center;
         }
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .card h1 {
+            color: #0d6efd;
+            font-size: 24px;
+            margin-bottom: 10px;
         }
-        h1 {
-            color: #007bff;
+        .card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
-        p {
-            color: #333;
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 15px;
-            background-color: #28a745;
-            color: white;
+            display: block;
+            padding: 12px;
+            background-color: #0d6efd;
+            color: #fff;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0b5ed7;
+        }
+        .btn-secondary {
+            background-color: #198754;
+        }
+        .btn-secondary:hover {
+            background-color: #157347;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>রায়হান টেলিকম (Raiyan Telecom)</h1>
-        <p>আমাদের সেবাসমূহ দেখতে অ্যাপে যুক্ত থাকুন।</p>
-        <a href="#" class="btn">সেবা দেখুন</a>
+
+    <div class="card">
+        <h1>রায়হান টেলিকম</h1>
+        <p>আমাদের সকল টেলিকম সেবা ও অফারসমূহ সহজে পেতে নিচে থাকা বাটনগুলোতে ক্লিক করুন।</p>
+        
+        <div class="btn-group">
+            <a href="#" class="btn">রিচার্জ সেবা</a>
+            <a href="#" class="btn btn-secondary">ড্রাইভ প্যাক ও অফার</a>
+        </div>
     </div>
+
 </body>
 </html>
-
-
---------------------------------------------------------------------------------
-9. README_BN.txt
---------------------------------------------------------------------------------
-রুম্মান ভাই,
-
-আপনার Raiyan Telecom অ্যান্ড্রয়েড স্টুডিও প্রজেক্ট তৈরি করে দেওয়া হয়েছে।
-
-ফাইলগুলোর কাজ:
-১. app/src/main/assets/index.html - এখানে আপনার অ্যাপের মূল ডিজাইন/ওয়েব পেজের কনটেন্ট থাকবে।
-২. MainActivity.kt - এটি লোকাল index.html ফাইলটিকে অ্যাপের মধ্যে WebView আকারে লোড করবে।
-৩. AndroidManifest.xml - ইন্টারনেটের পারমিশন দেওয়া আছে।
-
-যেকোনো সমস্যায় জানাবেন!
-================================================================================
-                    
